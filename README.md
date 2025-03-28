@@ -35,5 +35,8 @@ First time trying it.
 ## ModelView in the model layer
 First time doing it.
 
+## Wishlist
+First time doing it. Saves in a session - so as long the website is running, it saves the changes.
+
 ## Things that could be changed
 - I could have added a BusinessLogicLayer between the Controller and ServiceLayer. That would be better for separations of concerns.
