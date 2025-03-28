@@ -10,10 +10,10 @@ Open the code in Visual Studio and run it in https. This should open the website
 # Documentation
 Information about some of my coding choices.
 
-Architecture
+## Architecture
 MVC - Controller, View, Model, Service layer
 
-API connection
+## API connection
 Connection through appsettings.json so it can be used by more than one servicelayer. It makes it easier to vedligeholde so if the api connection ever needs to be changed, I just have to change it one place instead of multiple service-layers.
 
 The documentation for the middleware API can be found here: https://developer.themoviedb.org/reference/intro/getting-started 
