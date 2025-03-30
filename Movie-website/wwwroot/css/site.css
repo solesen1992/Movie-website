@@ -18,5 +18,17 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #0d0c1d; /*Added*/
+    color: white; /*Added*/
+}
+
+/*Added*/
+.card-title {
+    font-size: 0.9rem;
+}
+
+/*Added*/
+.navbar-custom {
+    background-color: #0d0c1d;
 }

@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Movie_website.Models.HomePageViewModel
+
+@{
+    ViewData["Title"] = "Forside";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Cover photo -->
+<div class="w-100" style="margin: 0; padding: 0;">
+    <img src="~/img/cover.png"
+         alt="Forsidebillede"
+         class="d-block"
+         style="width: 100%; height: auto; object-fit: cover; margin: 0; padding: 0;" />
+</div>
+
+<!-- Genres -->
+<div class="container mt-5">
+    <h2 class="text-white mb-3">Film</h2>
+
+    @foreach (var genre in Model.MovieGenres)
+    {
+        <div class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="text-white">@genre.Name (@genre.TotalCount i alt)</h4>
+                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+            </div>
+
+            <!--Columns-->
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
+                @foreach (var movie in genre.Movies)
+                {
+                    <div class="col">
+                        <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
+                            <img src="@movie.PosterUrl" class="img-fluid rounded shadow" style="width: 100%; height: 225px; object-fit: contain;" alt="@movie.Title" />
+                            <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <h2 class="text-white mb-3">Serier</h2>
+
+    @foreach (var genre in Model.SeriesGenres)
+    {
+        <div class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="text-white">@genre.Name (@genre.TotalCount i alt)</h4>
+                <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+            </div>
+
+            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
+                @foreach (var series in genre.Series)
+                {
+                    <div class="col">
+                        <a href="/Series/Details/@series.Id" style="text-decoration: none;">
+                            <img src="@series.PosterUrl" class="img-fluid rounded shadow" style="width: 100%; height: 225px; object-fit: contain;" alt="@series.Name" />
+                            <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>

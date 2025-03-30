@@ -1,0 +1,25 @@
+﻿@model Movie_website.Models.Series
+@{
+    ViewData["Title"] = @Model.Name;
+    var isInWishlist = ViewBag.IsInWishlist as bool? ?? false;
+}
+
+<div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
+    <div class="container bg-dark bg-opacity-75 rounded p-4">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Model.PosterUrl" class="img-fluid rounded shadow" alt="@Model.Name" />
+            </div>
+            <div class="col-md-8">
+                <h1>@Model.Name (@Model.ReleaseYear)</h1>
+                <p>@Model.Overview</p>
+
+                @* GENRER *@
+                @if (Model.Genres != null && Model.Genres.Any())
+                {
+                    <p><strong>Genrer:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

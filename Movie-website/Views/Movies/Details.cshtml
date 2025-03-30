@@ -1,0 +1,80 @@
+﻿@model Movie_website.Models.Movie
+@{
+    var isInWishlist = ViewBag.IsInWishlist as bool? ?? false;
+}
+
+<div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
+    <div class="container bg-dark bg-opacity-75 rounded p-4">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Model.PosterUrl" class="img-fluid rounded shadow" />
+            </div>
+            <div class="col-md-8">
+
+                <!-- Wishlist buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                @if (isInWishlist)
+                {
+                    <form method="post" action="/Wishlist/Remove">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button class="btn btn-danger">Fjern fra ønskeliste</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" action="/Wishlist/Add">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button class="btn btn-success">Tilføj til ønskeliste</button>
+                    </form>
+                }
+                </div>
+
+                <!-- Title, description, genres -->
+                <h1>@Model.Title (@Model.ReleaseYear)</h1>
+                <p>@Model.Overview</p>
+                <p><strong>Genres:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
+
+                <!-- Trailer -->
+                @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
+                {
+                    var trailer = Model.Videos.Results.First(v => v.Type == "Trailer" && v.Site == "YouTube");
+                    <div class="mt-4">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/@trailer.Key" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                }
+
+                <!-- Cast and crew -->
+                @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
+                {
+                    <div class="mt-4">
+                        <h5>Skuespillere</h5>
+                        <ul>
+                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Tag de 5 første
+                            {
+                                <li>@actor.Name som @actor.Character</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (Model.Credits?.Crew != null)
+                {
+                    var directors = Model.Credits.Crew.Where(c => c.Job == "Director").ToList();
+
+                    if (directors.Any())
+                    {
+                        <div class="mt-4">
+                            <h5>Instruktør@((directors.Count > 1) ? "er" : "")</h5>
+                            <ul>
+                                @foreach (var dir in directors)
+                                {
+                                    <li>@dir.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

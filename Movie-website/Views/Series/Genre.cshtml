@@ -1,0 +1,21 @@
+﻿@* Views/Series/Genre.cshtml *@
+@model List<Movie_website.Models.Series>
+@{
+    ViewData["Title"] = ViewBag.GenreName;
+}
+
+<div class="container mt-5">
+    <h2 class="text-white">@ViewBag.GenreName (@ViewBag.TotalResults serier)</h2>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
+        @foreach (var series in Model)
+        {
+            <div class="col">
+                <a href="/Series/Details/@series.Id" style="text-decoration: none;">
+                    <img src="@series.PosterUrl" class="img-fluid rounded shadow bg-black" style="height: 300px; object-fit: contain;" alt="@series.Name" />
+                    <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>
