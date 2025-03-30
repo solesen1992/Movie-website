@@ -5,6 +5,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+/*
+ * HttpClient Factory Explanation
+ * 
+ * MovieService and SeriesService are registered using AddHttpClient(). 
+ * This automatically injects an HttpClient into MovieService and SeriesService through Dependency Injection (DI).
+ * It uses ASP.NET Core's built-in IHttpClientFactory, which is a factory pattern 
+ * that manages the creation and lifetime of HttpClient instances.
+ * 
+ * Benefits:
+ * - Prevents socket exhaustion by reusing underlying HTTP connections (via HttpMessageHandler pooling) instead of opening a new TCP connection each time.
+ * - Handles DNS updates correctly by recycling handlers when needed.
+ * 
+ * Note:
+ * Even though a new HttpClient instance can be injected per request, IHttpClientFactory ensures that the underlying connections are reused.
+ * ---------------------------------
+ * Dependency Injection explanation
+ * 
+ * Dependency Injection is used instead of creating objects manually with 'new' in each controller. 
+ * The DI container (built into ASP.NET Core) automatically creates and manages the lifetime of MovieService and SeriesService.
+ */
 builder.Services.AddHttpClient<IMovieService, MovieService>(); // Added so it only uses one HttpClient per service.
 builder.Services.AddHttpClient<ISeriesService, SeriesService>();
 
