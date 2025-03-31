@@ -79,37 +79,6 @@ namespace Movie_website.Service
             }
         }
 
-        /*
-         * GetGenresAsync()
-         * 
-         * This method fetches all available movie genres from The Movie Database API.
-         * It is async because it sends an HTTP request and waits for the API to respond.
-         * If no genres are returned or an error happens, it returns an empty list.
-         */
-        /*public async Task<List<Genre>> GetGenresAsync()
-        {
-            try
-            {
-                string url = $"{_baseUrl}genre/movie/list?api_key={_apiKey}";
-                var response = await _httpClient.GetFromJsonAsync<GenreListResponse>(url);
-
-                if (response != null && response.Genres != null)
-                {
-                    return response.Genres;
-                }
-                else
-                {
-                    // Return empty list if no data
-                    return new List<Genre>();
-                }
-            }
-            catch (Exception ex)
-            {
-                // If something goes wrong, log the error and return empty list
-                Console.WriteLine($"Error fetching genres: {ex.Message}");
-                return new List<Genre>();
-            }
-        }*/
 
         /*
          * GetMovieDetailsAsync()
