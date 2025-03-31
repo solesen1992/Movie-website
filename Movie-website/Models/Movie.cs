@@ -27,7 +27,6 @@ namespace Movie_website.Models
         [JsonPropertyName("credits")]
         public CreditsListResponse Credits { get; set; }
 
-        // 👇 Tilføj denne:
         [JsonPropertyName("videos")]
         public VideoListResponse Videos { get; set; }
 

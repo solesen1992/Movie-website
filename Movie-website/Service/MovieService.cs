@@ -86,7 +86,7 @@ namespace Movie_website.Service
          * It is async because it sends an HTTP request and waits for the API to respond.
          * If no genres are returned or an error happens, it returns an empty list.
          */
-        public async Task<List<Genre>> GetGenresAsync()
+        /*public async Task<List<Genre>> GetGenresAsync()
         {
             try
             {
@@ -109,7 +109,7 @@ namespace Movie_website.Service
                 Console.WriteLine($"Error fetching genres: {ex.Message}");
                 return new List<Genre>();
             }
-        }
+        }*/
 
         /*
          * GetMovieDetailsAsync()

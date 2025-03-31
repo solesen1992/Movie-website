@@ -12,7 +12,7 @@ namespace Movie_website.Service
     public interface IMovieService
     {
         Task<ApiListResponse<Movie>> GetMoviesByGenreAsync(int genreId, int page = 1);
-        Task<List<Genre>> GetGenresAsync();
+        /*Task<List<Genre>> GetGenresAsync();*/
         Task<Movie> GetMovieDetailsAsync(int movieId);
     }
 }
