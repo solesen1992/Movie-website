@@ -2,7 +2,7 @@
 This project was made as a part of Wexo's code challenge.
 I chose to build it using the MVC pattern (Model-View-Controller) because I have worked with it once before and wanted to challenge myself.
 
-It was my first time fetching and working with data from an external API that I didn’t create myself, which was a great learning experience. My main focus was on figuring out how to connect to The Movie Database (TMDb) API, read the JSON data, and show the right information in the application.
+It was my first time fetching and working with data from an external API that I didn’t create myself, which was a great learning experience. My main focus was on figuring out how to connect to The Movie Database API, read the JSON data, and show the right information in the application.
 
 ## 🚀 How to open the file
 Open the project in Visual Studio and run it in https mode.
@@ -74,6 +74,8 @@ public HomeController(IMovieService movieService, ISeriesService seriesService)
 
 ✅ Better separation of concerns and low coupling between layers.
 
+## 🚀 Async vs sync
+
 ## 📄 Interfaces
 The project uses interfaces (e.g. IMovieService, ISeriesService) to create low coupling between layers.
 
@@ -99,7 +101,7 @@ I also created simple ViewModels to prepare and structure the data before sendin
 This was my first time working with ViewModels.
 It helped me keep the Views simple and clean and only show the data the user needs to see.
 
-## Wishlist
+## 📄 Wishlist
 This project includes a Wishlist feature. The wishlist is saved in the Session, meaning:
 
 ✅ It remembers which movies/series the user added
@@ -113,10 +115,8 @@ If I had more time, I could improve the project by:
 
 - Adding a Business Logic Layer between the Controller and Service Layer → This would make the project even more structured and better follow the Separation of Concerns principle.
 
-- Adding unit tests for the service layer and business logic.
+- Adding user feedback in the Views if the API call fails.
 
-- Adding error handling and user feedback in the Views if the API call fails.
-
-- Making the wishlist persist between sessions (e.g. saving to a database instead of session).
+- Making the wishlist persist between sessions.
 
 - Using retry policies or timeout configurations in .AddHttpClient().
