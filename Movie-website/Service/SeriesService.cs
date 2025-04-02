@@ -89,7 +89,7 @@ namespace Movie_website.Service
         {
             try
             {
-                var url = $"{_baseUrl}tv/{id}?api_key={_apiKey}";
+                var url = $"{_baseUrl}tv/{id}?api_key={_apiKey}&append_to_response=credits,videos";
                 var series = await _httpClient.GetFromJsonAsync<Series>(url);
 
                 if (series != null)

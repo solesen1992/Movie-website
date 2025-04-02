@@ -1,11 +1,15 @@
-﻿@* Views/Series/Genre.cshtml *@
-@model List<Movie_website.Models.Series>
+﻿@model List<Movie_website.Models.Series>
 @{
-    ViewData["Title"] = ViewBag.GenreName;
+    var genreName = ViewBag.GenreName as string ?? "Genre";
+    var genreId = ViewBag.GenreId as int? ?? 0;
+    var total = ViewBag.TotalResults as int? ?? 0;
+    var currentPage = ViewBag.Page as int? ?? 1;
+    int pageSize = 20;
+    int totalPages = (int)Math.Ceiling((double)total / pageSize);
 }
 
 <div class="container mt-5">
-    <h2 class="text-white">@ViewBag.GenreName (@ViewBag.TotalResults serier)</h2>
+    <h1 class="text-white">@genreName (@total i alt)</h1>
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
         @foreach (var series in Model)
@@ -18,4 +22,32 @@
             </div>
         }
     </div>
+
+    @if (totalPages > 1)
+    {
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                @if (currentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@(currentPage - 1)">Forrige</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= totalPages && i <= 10; i++)
+                {
+                    <li class="page-item @(i == currentPage ? "active" : "")">
+                        <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@i">@i</a>
+                    </li>
+                }
+
+                @if (currentPage < totalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@(currentPage + 1)">Næste</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>

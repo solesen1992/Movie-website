@@ -30,6 +30,73 @@ namespace Movie_website.Controllers
             _movieService = movieService;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            // Get the list of manually desired genres (no API call needed)
+            var desiredGenres = GetDesiredGenres();
+
+            var movieGenres = new List<MovieGenreViewModel>();
+            foreach (var genre in desiredGenres)
+            {
+                // Fetch movies for each genre (use the MovieService to fetch by genre)
+                var movieGenre = await GetMoviesForGenreAsync(genre.Id, genre.Name);
+                if (movieGenre != null)
+                {
+                    movieGenres.Add(movieGenre);
+                }
+            }
+
+            // Return the view with the movie genres
+            return View(movieGenres);
+        }
+
+        private List<(int Id, string Name)> GetDesiredGenres()
+        {
+            // Manually specified genres you want to display
+            return new List<(int Id, string Name)>
+            {
+                (28, "Action"),
+                (35, "Comedy"),
+                (80, "Crime"),
+                (99, "Documentary"),
+                (18, "Drama"),
+                (27, "Horror"),
+                (10749, "Romance"),
+                (53, "Thriller"),
+                (10752, "War")
+            };
+        }
+
+        /*
+         * GetMoviesForGenreAsync()
+         * 
+         * This method fetches movies for a specific genre from the API and creates a MovieGenreViewModel with the data.
+         * It is async because it waits for the API to return data.
+         * Returns null if there are no movies in this genre.
+         * 
+         * Helper method for the Index method.
+         */
+        private async Task<MovieGenreViewModel?> GetMoviesForGenreAsync(int genreId, string genreName)
+        {
+            // Get movies from API
+            var movieResponse = await _movieService.GetMoviesByGenreAsync(genreId);
+
+            // If there are movies, create a ViewModel with the first 6 movies
+            if (movieResponse.Results.Any())
+            {
+                return new MovieGenreViewModel
+                {
+                    Id = genreId,
+                    Name = genreName,
+                    Movies = movieResponse.Results.Take(6).ToList(),
+                    TotalCount = movieResponse.TotalResults
+                };
+            }
+
+            // Return null if there are no movies
+            return null;
+        }
+
         /*
          * Genre(int id, string name, int page = 1)
          * 

@@ -19,6 +19,47 @@
                 {
                     <p><strong>Genrer:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
                 }
+
+                @* Trailer *@
+                @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
+                {
+                    var trailer = Model.Videos.Results.First(v => v.Type == "Trailer" && v.Site == "YouTube");
+                    <div class="mt-4">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/@trailer.Key" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                }
+
+                @* Cast *@
+                @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
+                {
+                    <div class="mt-4">
+                        <h5>Cast</h5>
+                        <ul>
+                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Take first 5
+                            {
+                                <li>@actor.Name as @actor.Character</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @* Directors *@
+                @if (Model.Credits?.Crew != null)
+                {
+                    var directors = Model.Credits.Crew.Where(c => c.Job == "Director").ToList();
+                    if (directors.Any())
+                    {
+                        <div class="mt-4">
+                            <h5>Director@((directors.Count > 1) ? "s" : "")</h5>
+                            <ul>
+                                @foreach (var dir in directors)
+                                {
+                                    <li>@dir.Name</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                }
             </div>
         </div>
     </div>

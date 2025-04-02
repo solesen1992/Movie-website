@@ -1,0 +1,32 @@
+﻿@model List<Movie_website.Models.SeriesGenreViewModel>
+@{
+    ViewData["Title"] = "Tv-serier";
+}
+
+<div class="container mt-5">
+    <h1 class="text-white mb-3">Tv-serier - Opdelt efter genre</h1>
+    </br>
+
+    @foreach (var genre in Model)
+    {
+        <div class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="text-white">@genre.Name</h4>
+                <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+            </div>
+
+            <!-- Series List for this Genre -->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
+                @foreach (var series in genre.Series)
+                {
+                    <div class="col">
+                        <a href="/Series/Details/@series.Id" style="text-decoration: none;">
+                            <img src="@series.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
+                            <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
