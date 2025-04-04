@@ -23,6 +23,8 @@ The project is built following the MVC pattern:
 
 - Controller → For handling HTTP requests
 
+- Business Logic Layer → Processes and applies business rules to the data that is fetched or manipulated
+
 - Service Layer → For fetching and handling data from the API. The service layer is used to separate the logic of fetching API data from the controllers and follows Dependency Injection principles.
 
 ## 🔗 API connection
@@ -148,8 +150,6 @@ The wishlist feature was a good exercise in working with Session state in ASP.NE
 
 ## Things that could be changed
 If I had more time, I could improve the project by:
-
-- Adding a Business Logic Layer between the Controller and Service Layer. This would make the project even more structured and better follow the Separation of Concerns principle.
 
 - Adding user feedback in the Views if the API call fails.
 
