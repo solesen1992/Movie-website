@@ -140,7 +140,7 @@ It helped me keep the Views simple and clean and only show the data the user nee
 ## 📄 Wishlist
 This project includes a Wishlist feature. The wishlist is saved in the Session, meaning:
 
-✅ It remembers which movies/series the user added
+✅ It remembers which movies the user added
 
 ✅ The data is stored temporarily as long as the website is open and the session is active
 
@@ -149,10 +149,12 @@ The wishlist feature was a good exercise in working with Session state in ASP.NE
 ## Things that could be changed
 If I had more time, I could improve the project by:
 
-- Adding a Business Logic Layer between the Controller and Service Layer → This would make the project even more structured and better follow the Separation of Concerns principle.
+- Adding a Business Logic Layer between the Controller and Service Layer. This would make the project even more structured and better follow the Separation of Concerns principle.
 
 - Adding user feedback in the Views if the API call fails.
 
 - Making the wishlist persist between sessions.
+
+- Make it possible to add tv-series to the wishlist.
 
 - Using retry policies or timeout configurations in .AddHttpClient().
