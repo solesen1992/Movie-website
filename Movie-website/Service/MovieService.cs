@@ -49,6 +49,9 @@ namespace Movie_website.Service
                 string url = $"{_baseUrl}discover/movie?api_key={_apiKey}&with_genres={genreId}&page={page}";
                 var response = await _httpClient.GetFromJsonAsync<ApiListResponse<Movie>>(url);
 
+                // Debugging: log the response to see if there is data
+                Console.WriteLine($"Response: {response}");
+
                 if (response != null)
                 {
                     return response;

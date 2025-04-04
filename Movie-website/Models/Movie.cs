@@ -25,7 +25,7 @@ namespace Movie_website.Models
         public List<Genre> Genres { get; set; }
 
         [JsonPropertyName("credits")]
-        public CreditsListResponse Credits { get; set; }
+        public Credits Credits { get; set; }
 
         [JsonPropertyName("videos")]
         public VideoListResponse Videos { get; set; }

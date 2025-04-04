@@ -1,3 +1,5 @@
+using Movie_website.BusinessLogic;
+using Movie_website.Models;
 using Movie_website.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,8 +27,14 @@ builder.Services.AddControllersWithViews();
  * Dependency Injection is used instead of creating objects manually with 'new' in each controller. 
  * The DI container (built into ASP.NET Core) automatically creates and manages the lifetime of MovieService and SeriesService.
  */
+// Register MovieService and SeriesService
 builder.Services.AddHttpClient<IMovieService, MovieService>(); // Added so it only uses one HttpClient per service.
 builder.Services.AddHttpClient<ISeriesService, SeriesService>();
+
+// Register Business Logic Layer services
+builder.Services.AddScoped<IMovieLogic, MovieLogic>();
+builder.Services.AddScoped<ISeriesLogic, SeriesLogic>();
+builder.Services.AddScoped<IHomeLogic, HomeLogic>();
 
 builder.Services.AddSession(); // Added for session support
 

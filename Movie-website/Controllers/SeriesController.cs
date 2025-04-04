@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Movie_website.Service;
-using Movie_website.Extensions;
+﻿using Microsoft.AspNetCore.Mvc;
 using Movie_website.Models;
+using Movie_website.BusinessLogic;
 
 /***************************************************************
  * SeriesController
@@ -21,26 +19,27 @@ namespace Movie_website.Controllers
 {
     public class SeriesController : Controller
     {
-        private readonly ISeriesService _seriesService;
+        private readonly ISeriesLogic _seriesLogic;
+
 
         /**
          * Constructor
          */
-        public SeriesController(ISeriesService seriesService)
+        public SeriesController(ISeriesLogic seriesLogic)
         {
-            _seriesService = seriesService;
+            _seriesLogic = seriesLogic;
         }
 
         public async Task<IActionResult> Index()
         {
-            // Get the list of manually desired genres (no API call needed)
-            var desiredGenres = GetDesiredGenres();
+            // Get the list of manually desired genres from helper method
+            var desiredGenres = _seriesLogic.GetDesiredGenres();
 
             var seriesGenres = new List<SeriesGenreViewModel>();
             foreach (var genre in desiredGenres)
             {
-                // Fetch series for each genre (use the SeriesService to fetch by genre)
-                var seriesGenre = await GetSeriesForGenreAsync(genre.Id, genre.Name);
+                // Fetch series for each genre using the business logic layer
+                var seriesGenre = await _seriesLogic.GetSeriesByGenreAsync(genre.Id, genre.Name, page: 1);
                 if (seriesGenre != null)
                 {
                     seriesGenres.Add(seriesGenre);
@@ -51,18 +50,6 @@ namespace Movie_website.Controllers
             return View(seriesGenres);
         }
 
-        private List<(int Id, string Name)> GetDesiredGenres()
-        {
-            // Manually specified genres you want to display for series
-            return new List<(int Id, string Name)>
-            {
-                (35, "Comedy"),
-                (80, "Crime"),
-                (99, "Documentary"),
-                (18, "Drama"),
-                (10749, "Romance"),
-            };
-        }
 
         /*
          * GetSeriesForGenreAsync()
@@ -73,7 +60,7 @@ namespace Movie_website.Controllers
          * 
          * Heler method for the Index method.
          */
-        private async Task<SeriesGenreViewModel?> GetSeriesForGenreAsync(int genreId, string genreName)
+        /*private async Task<SeriesGenreViewModel?> GetSeriesForGenreAsync(int genreId, string genreName)
         {
             // Get series from API
             var seriesResponse = await _seriesService.GetSeriesByGenreAsync(genreId);
@@ -92,7 +79,7 @@ namespace Movie_website.Controllers
 
             // Return null if there are no series
             return null;
-        }
+        }*/
 
         /*
          * Genre(int id, string name, int page = 1)
@@ -103,16 +90,16 @@ namespace Movie_website.Controllers
          */
         public async Task<IActionResult> Genre(int id, string name, int page = 1)
         {
-            var result = await _seriesService.GetSeriesByGenreAsync(id, page);
+            // Get series from the business logic layer
+            var result = await _seriesLogic.GetSeriesByGenreAsync(id, name, page);
 
-            // Save information for the view (genre name, total results, page number, genre id)
+            // Save the information for the view
             ViewBag.GenreName = name;
-            ViewBag.TotalResults = result.TotalResults;
+            ViewBag.TotalResults = result.TotalCount;
             ViewBag.Page = page;
             ViewBag.GenreId = id;
 
-            // Show the list of series in the view
-            return View(result.Results);
+            return View(result.Series);
         }
 
         /*
@@ -124,8 +111,8 @@ namespace Movie_website.Controllers
          */
         public async Task<IActionResult> Details(int id)
         {
-            var series = await _seriesService.GetSeriesDetailsAsync(id);
-            return View("Details", series);
+            var series = await _seriesLogic.GetSeriesDetailsAsync(id);
+            return View(series);
         }
     }
 }
