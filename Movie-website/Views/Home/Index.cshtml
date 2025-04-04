@@ -1,4 +1,5 @@
-﻿@model HomePageViewModel
+﻿@using Movie_website.ViewModels
+@model HomePageViewModel
 
 @{
     ViewData["Title"] = "Forside";
@@ -20,7 +21,7 @@
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4 class="text-white">@genre.Name (@genre.TotalCount i alt)</h4>
+                <h3 class="text-white">@genre.Name (@genre.TotalCount i alt)</h3>
                 <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
             </div>
 
@@ -45,7 +46,7 @@
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4 class="text-white">@genre.Name (@genre.TotalCount i alt)</h4>
+                <h3 class="text-white">@genre.Name (@genre.TotalCount i alt)</h3>
                 <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
             </div>
 

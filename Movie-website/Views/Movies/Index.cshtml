@@ -1,4 +1,5 @@
-﻿@model List<MovieGenreViewModel>
+﻿@using Movie_website.ViewModels
+@model List<MovieGenreViewModel>
 @{
     ViewData["Title"] = "Film - Opdelt efter genre";
 }
@@ -11,7 +12,7 @@
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4 class="text-white">@genre.Name</h4>
+                <h2 class="text-white">@genre.Name (@genre.TotalCount i alt)</h2>
                 <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
             </div>
 
