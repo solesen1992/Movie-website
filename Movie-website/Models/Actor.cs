@@ -2,12 +2,12 @@
 
 namespace Movie_website.Models
 {
-    public class CrewMember
+    public class Actor
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("job")]
-        public string Job { get; set; }
+        [JsonPropertyName("character")]
+        public string Character { get; set; }
     }
 }

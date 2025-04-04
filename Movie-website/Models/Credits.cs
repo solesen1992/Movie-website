@@ -17,9 +17,9 @@ namespace Movie_website.Models
     public class Credits
     {
         // List of actors in the movie or series
-        public List<CastMember> Cast { get; set; }
+        public List<Actor> Cast { get; set; }
 
         // List of crew members (e.g. Director, Producer, etc.)
-        public List<CrewMember> Crew { get; set; }
+        public List<Crew> Crew { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Movie_website.BusinessLogic;
-using Movie_website.Models;
+using Movie_website.ViewModels;
 
 /*
  * HomeController

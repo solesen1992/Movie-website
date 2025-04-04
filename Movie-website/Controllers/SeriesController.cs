@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Movie_website.Models;
 using Movie_website.BusinessLogic;
+using Movie_website.ViewModels;
 
 /***************************************************************
  * SeriesController
@@ -50,36 +50,6 @@ namespace Movie_website.Controllers
             return View(seriesGenres);
         }
 
-
-        /*
-         * GetSeriesForGenreAsync()
-         * 
-         * This method fetches series for a specific genre from the API and creates a SeriesGenreViewModel with the data.
-         * It is async because it waits for the API to return data.
-         * Returns null if there are no series in this genre.
-         * 
-         * Heler method for the Index method.
-         */
-        /*private async Task<SeriesGenreViewModel?> GetSeriesForGenreAsync(int genreId, string genreName)
-        {
-            // Get series from API
-            var seriesResponse = await _seriesService.GetSeriesByGenreAsync(genreId);
-
-            // If there are series, create a ViewModel with the first 6 series
-            if (seriesResponse.Results.Any())
-            {
-                return new SeriesGenreViewModel
-                {
-                    Id = genreId,
-                    Name = genreName,
-                    Series = seriesResponse.Results.Take(6).ToList(),
-                    TotalCount = seriesResponse.TotalResults
-                };
-            }
-
-            // Return null if there are no series
-            return null;
-        }*/
 
         /*
          * Genre(int id, string name, int page = 1)

@@ -18,7 +18,7 @@
  * "When you see 'total_results' in JSON, map it to 'TotalResults' in C#."
  */
 
-namespace Movie_website.Models
+namespace Movie_website.ResponseModels
 {
     public class ApiListResponse<T>
     {

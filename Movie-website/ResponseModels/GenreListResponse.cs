@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using Movie_website.Models;
+using System.Text.Json.Serialization;
 
-namespace Movie_website.Models
+namespace Movie_website.ResponseModels
 {
     public class GenreListResponse
     {

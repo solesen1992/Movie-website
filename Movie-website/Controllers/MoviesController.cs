@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Movie_website.Models;
 using Movie_website.Service;
 using Movie_website.Extensions;
 using Movie_website.BusinessLogic;
+using Movie_website.ViewModels;
 
 /*
  * MoviesController
@@ -50,23 +50,6 @@ namespace Movie_website.Controllers
             // Return the view with the movie genres
             return View(movieGenres);
         }
-
-        /*private List<(int Id, string Name)> GetDesiredGenres()
-        {
-            // Manually specified genres you want to display
-            return new List<(int Id, string Name)>
-            {
-                (28, "Action"),
-                (35, "Comedy"),
-                (80, "Crime"),
-                (99, "Documentary"),
-                (18, "Drama"),
-                (27, "Horror"),
-                (10749, "Romance"),
-                (53, "Thriller"),
-                (10752, "War")
-            };
-        }*/
 
         /*
          * Genre(int id, string name, int page = 1)

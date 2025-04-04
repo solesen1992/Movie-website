@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Movie_website.ResponseModels;
+using System.Text.Json.Serialization;
 
 namespace Movie_website.Models
 {

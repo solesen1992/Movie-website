@@ -1,4 +1,4 @@
-﻿using Movie_website.Models;
+﻿using Movie_website.ViewModels;
 
 namespace Movie_website.BusinessLogic
 {
