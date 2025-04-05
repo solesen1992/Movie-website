@@ -1,6 +1,14 @@
 ﻿using Movie_website.ResponseModels;
 using System.Text.Json.Serialization;
 
+/*
+ * Series
+ * 
+ * Represents a TV series with details such as the name, overview, first air date, poster path, and more. 
+ * Includes a `Genres` property for a list of genres, `Credits` for the cast and crew, and `Videos` for trailers or other videos.
+ * The properties are mapped directly from the JSON response of the TMDb API.
+ */
+
 namespace Movie_website.Models
 {
     public class Series

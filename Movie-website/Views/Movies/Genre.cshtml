@@ -1,47 +1,59 @@
 ﻿@model List<Movie_website.Models.Movie>
 @{
-    var genreName = ViewBag.GenreName as string ?? "Genre";
-    var genreId = ViewBag.GenreId as int? ?? 0;
-    var total = ViewBag.TotalResults as int? ?? 0;
-    var currentPage = ViewBag.Page as int? ?? 1;
-    int pageSize = 20; // 20 films per page on genre pages
-    int totalPages = (int)Math.Ceiling((double)total / pageSize);
+    // The model for this view is a list of Movie objects, representing movie data.
+    var genreName = ViewBag.GenreName as string ?? "Genre"; // Retrieve genre name from ViewBag or set default to "Genre"
+    var genreId = ViewBag.GenreId as int? ?? 0; // Retrieve genre ID from ViewBag or set default to 0
+    var total = ViewBag.TotalResults as int? ?? 0; // Retrieve the total number of movies from ViewBag
+    var currentPage = ViewBag.Page as int? ?? 1; // Retrieve the current page number from ViewBag, default to 1 if not present
+    int pageSize = 20; // Set page size to 20 movies per page
+    int totalPages = (int)Math.Ceiling((double)total / pageSize); // Calculate the total number of pages based on the total count and page size
 }
 
 <div class="container mt-5">
+    <!-- Main header displaying the genre name and total movies count -->
     <h1 class="text-white">@genreName (@total in total)</h1>
 
+    <!-- Movie List layout using Bootstrap grid system -->
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
-        @foreach (var movie in Model)
+        @foreach (var movie in Model) // Loop through each movie in the model (list of Movie)
         {
+            <!-- Create a column for each movie in the grid -->
             <div class="col">
+                <!-- Link to the details page for the movie -->
                 <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
+                    <!-- Display the movie poster image -->
                     <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
+                    <!-- Display the movie title under the image -->
                     <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                 </a>
             </div>
         }
     </div>
 
-    @if (totalPages > 1)
+    <!-- Pagination controls if there are more than one page -->
+    @if (totalPages > 1)  // ´Check if totalPages is greater than 1 to show pagination -->
     {
+        <!-- Navigation bar for pagination -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
-                @if (currentPage > 1)
+                <!-- "Previous" button, which is shown if we are not on the first page -->
+                @if (currentPage > 1)  // Show the "Previous" button if we are not on the first page -->
                 {
                     <li class="page-item">
                         <a class="page-link" href="/Movies/Genre?id=@genreId&name=@genreName&page=@(currentPage - 1)">Previous</a>
                     </li>
                 }
 
-                @for (int i = 1; i <= totalPages && i <= 10; i++)
+                <!-- Page number links, showing up to the first 10 pages -->
+                @for (int i = 1; i <= totalPages && i <= 10; i++)  // Loop through the page numbers -->
                 {
-                    <li class="page-item @(i == currentPage ? "active" : "")">
+                    <li class="page-item @(i == currentPage ? "active" : "")">  <!-- Highlight the current page -->
                         <a class="page-link" href="/Movies/Genre?id=@genreId&name=@genreName&page=@i">@i</a>
                     </li>
                 }
 
-                @if (currentPage < totalPages)
+                <!-- "Next" button, which is shown if we are not on the last page -->
+                @if (currentPage < totalPages)  // Show the "Next" button if we are not on the last page -->
                 {
                     <li class="page-item">
                         <a class="page-link" href="/Movies/Genre?id=@genreId&name=@genreName&page=@(currentPage + 1)">Next</a>

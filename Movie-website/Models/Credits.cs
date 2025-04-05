@@ -1,23 +1,18 @@
 ﻿/*
-     * Credits
-     * 
-     * This model represents both the cast and crew information 
-     * returned by The Movie Database API when fetching details 
-     * about a movie or a series.
-     * 
-     * It combines cast and crew into one object because they 
-     * always appear together in the "credits" JSON property.
-     * 
-     * This makes it easier to map and use in the Service Layer 
-     * and View without extra unnecessary response classes.
-     */
+ * Credits
+ * 
+ * Combines both the `Cast` and `Crew` classes, representing the complete list of cast and crew information 
+ * for a movie or series. This class is mapped directly from the `credits` JSON property returned by the TMDb API.
+ * 
+ * This class simplifies data handling by combining both `Cast` and `Crew` into one object, eliminating the need for separate response classes.
+ */
 
 namespace Movie_website.Models
 {
     public class Credits
     {
         // List of actors in the movie or series
-        public List<Actor> Cast { get; set; }
+        public List<Cast> Cast { get; set; }
 
         // List of crew members (e.g. Director, Producer, etc.)
         public List<Crew> Crew { get; set; }

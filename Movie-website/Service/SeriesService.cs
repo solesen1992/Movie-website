@@ -9,10 +9,9 @@ using System.Net.Http;
  * 
  * What it does:
  * - Fetches series by genre (GetSeriesByGenreAsync)
- * - Fetches details for a specific series (GetSeriesDetailsAsync)
+ * - Fetches series details (GetSeriesDetailsAsync)
  * 
- * All methods are async because they make HTTP requests 
- * to an external API, which takes time.
+ * All methods are asynchronous (async) because they make HTTP requests to an external API, which may take time.
  */
 
 namespace Movie_website.Service
@@ -26,7 +25,8 @@ namespace Movie_website.Service
         /*
          * Constructor
          * 
-         * Sets up the HttpClient and reads API information (API key and base URL) from configuration.
+         * Initializes the HttpClient and reads the API key and base URL from configuration.
+         * The HttpClient is used for making HTTP requests to the API.
          */
         public SeriesService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -38,9 +38,9 @@ namespace Movie_website.Service
         /*
          * GetSeriesByGenreAsync()
          * 
-         * This method fetches series from The Movie Database API by a specific genre ID.
-         * It is async because it sends an HTTP request to the API and waits for the response.
-         * If the API returns no data or there is an error, it returns an empty list of series.
+         * Fetches a list of series for a specific genre from The Movie Database API.
+         * It is async because it sends an HTTP request and waits for the API response.
+         * If the API returns no data or an error occurs, it returns an empty list of series.
          */
         public async Task<ApiListResponse<Series>> GetSeriesByGenreAsync(int genreId, int page = 1)
         {
@@ -82,9 +82,10 @@ namespace Movie_website.Service
         /*
          * GetSeriesDetailsAsync()
          * 
-         * This method fetches detailed information about one specific series from The Movie Database API.
-         * It is async because it sends an HTTP request to the API and waits for the response.
-         * If no data is returned or an error happens, it returns an empty Series object.
+         * Fetches detailed information about a specific series from The Movie Database API.
+         * The details include credits (actors, directors) and videos (e.g., trailers).
+         * It is async because it waits for the API response.
+         * If an error occurs, it returns an empty Series object.
          */
         public async Task<Series> GetSeriesDetailsAsync(int id)
         {

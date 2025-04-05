@@ -1,5 +1,17 @@
 ﻿using Movie_website.ViewModels;
 
+/* 
+ * HomeLogic
+ * 
+ * This class handles the business logic for the homepage.
+ * It retrieves data for both movies and series by their genres, processes it, and provides a unified view model
+ * containing the necessary data for the homepage view.
+ * 
+ * Why do we have it?
+ * - It acts as the bridge between the controller and the service layer. It fetches and formats data before passing it to the controller.
+ * - It centralizes the logic of retrieving movies and series data for the homepage.
+ */
+
 namespace Movie_website.BusinessLogic
 {
     public class HomeLogic : IHomeLogic
@@ -7,24 +19,37 @@ namespace Movie_website.BusinessLogic
         private readonly IMovieLogic _movieLogic;
         private readonly ISeriesLogic _seriesLogic;
 
+        /*
+         * Constructor
+         * 
+         * Initializes the HomeLogic class with dependencies for the movie and series business logic.
+         * 
+         * Parameters:
+         * - movieLogic: Provides methods to fetch and process movie-related data.
+         * - seriesLogic: Provides methods to fetch and process series-related data.
+         */
         public HomeLogic(IMovieLogic movieLogic, ISeriesLogic seriesLogic)
         {
             _movieLogic = movieLogic;
             _seriesLogic = seriesLogic;
         }
 
-        /*
-         * Index()
+        /* 
+         * GetHomePageDataAsync()
          * 
-         * This method shows the homepage. It fetches movies and series by specific genres 
-         * and displays a preview of 6 movies/series per genre.
-         * The method has a lot of helper methods to prevent the method from being too long.
+         * This method fetches the necessary data for the homepage.
+         * It retrieves movie and series data by genre using the movie and series logic layers, processes it, and
+         * packages it into a HomePageViewModel.
          * 
-         * It is async because it needs to wait for the movie and series data from the API.
+         * Why async?
+         * - The method is asynchronous because it involves calling external data sources (e.g., APIs), which may take time.
+         * 
+         * Returns:
+         * - A populated HomePageViewModel containing movies and series data for display on the homepage.
          */
         public async Task<HomePageViewModel> GetHomePageDataAsync()
         {
-            // Get the genres for movies and series separately
+            // Fetch the genres for movies and series separately from each business logic class
             var movieGenres = _movieLogic.GetDesiredGenres();
             var seriesGenres = _seriesLogic.GetDesiredGenres();
 
@@ -34,7 +59,7 @@ namespace Movie_website.BusinessLogic
                 SeriesGenres = new List<SeriesGenreViewModel>()
             };
 
-            // Fetch movie and series data for each genre
+            // Fetch movie data for each genre and add it to the homepage view model
             foreach (var genre in movieGenres)
             {
                 var movieGenre = await _movieLogic.GetMoviesByGenreAsync(genre.Id, genre.Name);
@@ -44,6 +69,7 @@ namespace Movie_website.BusinessLogic
                 }
             }
 
+            // Fetch series data for each genre and add it to the homepage view model
             foreach (var genre in seriesGenres)
             {
                 var seriesGenre = await _seriesLogic.GetSeriesByGenreAsync(genre.Id, genre.Name);
@@ -54,28 +80,6 @@ namespace Movie_website.BusinessLogic
             }
 
             return homepageViewModel;
-        }
-
-        /*
-         * GetDesiredGenres()
-         * 
-         * Returns a list of genre IDs and names that we want to display on the homepage.
-         * Helper method for the Index method.
-         */
-        private List<(int Id, string Name)> GetDesiredGenres()
-        {
-            return new List<(int Id, string Name)>
-            {
-                (28, "Action"),
-                (35, "Comedy"),
-                (53, "Thriller"),
-                (10752, "War"),
-                (10749, "Romance"),
-                (18, "Drama"),
-                (80, "Crime"),
-                (99, "Documentary"),
-                (27, "Horror")
-            };
         }
     }
 }

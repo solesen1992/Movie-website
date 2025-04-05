@@ -26,7 +26,7 @@ namespace Movie_website.Controllers
         /*
          * Constructor
          * 
-         * This constructor initializes the services needed to get movies and series data.
+         * Initializes the HomeLogic service to interact with the business logic layer.
          */
         public HomeController(IHomeLogic homeLogic)
         {
@@ -36,21 +36,19 @@ namespace Movie_website.Controllers
         /*
          * Index()
          * 
-         * This method shows the homepage. It fetches movies and series by specific genres 
-         * and displays a preview of 6 movies/series per genre.
-         * The method has a lot of helper methods to prevent the method from being too long.
+         * Fetches the homepage data, including movies and series for the specified genres.
+         * It displays a preview of 6 movies/series per genre on the homepage.
          * 
-         * It is async because it needs to wait for the movie and series data from the API.
+         * This method is asynchronous as it fetches data from external services.
          */
         public async Task<IActionResult> Index()
         {
-            // Hent homepage data via business logic laget
+            // Fetch the homepage data through business logic
             var homepageViewModel = await _homeLogic.GetHomePageDataAsync();
 
-            // Returnér den færdige viewmodel til visningen
+            // Return the final viewmodel to be rendered in the view
             return View(homepageViewModel);
         }
-
 
 
         /**************************************************************************

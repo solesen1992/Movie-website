@@ -1,32 +1,42 @@
 ﻿@model List<Movie_website.Models.Series>
 @{
-    var genreName = ViewBag.GenreName as string ?? "Genre";
-    var genreId = ViewBag.GenreId as int? ?? 0;
-    var total = ViewBag.TotalResults as int? ?? 0;
-    var currentPage = ViewBag.Page as int? ?? 1;
-    int pageSize = 20; // 20 films per page on genre pages
-    int totalPages = (int)Math.Ceiling((double)total / pageSize);
+    // The model for this view is a list of Series, representing TV series data.
+    var genreName = ViewBag.GenreName as string ?? "Genre"; // Retrieve genre name from ViewBag or set default to "Genre"
+    var genreId = ViewBag.GenreId as int? ?? 0; // Retrieve genre ID from ViewBag or set default to 0
+    var total = ViewBag.TotalResults as int? ?? 0; // Retrieve the total number of series from ViewBag
+    var currentPage = ViewBag.Page as int? ?? 1; // Retrieve the current page number from ViewBag, default to 1 if not present
+    int pageSize = 20; // Set page size to 20 series per page
+    int totalPages = (int)Math.Ceiling((double)total / pageSize); // Calculate the total number of pages based on the total count and page size
 }
 
 <div class="container mt-5">
+    <!-- Main header displaying the genre name and total series count -->
     <h1 class="text-white">@genreName (@total in total)</h1>
 
+    <!-- Movie List layout using Bootstrap grid system -->
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
         @foreach (var series in Model)
         {
+            <!-- Loop through each series in the model (list of Series) -->
             <div class="col">
+                <!-- Link to the details page for the series -->
                 <a href="/Series/Details/@series.Id" style="text-decoration: none;">
+                    <!-- Display the series poster image -->
                     <img src="@series.PosterUrl" class="img-fluid rounded shadow bg-black" style="height: 300px; object-fit: contain;" alt="@series.Name" />
+                    <!-- Display the series name under the image -->
                     <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                 </a>
             </div>
         }
     </div>
 
+    <!-- Pagination controls if there are more than one page -->
     @if (totalPages > 1)
     {
+        <!-- Navigation bar for pagination -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
+                <!-- "Previous" button, which is shown if we are not on the first page -->
                 @if (currentPage > 1)
                 {
                     <li class="page-item">
@@ -34,13 +44,16 @@
                     </li>
                 }
 
+                <!-- Page number links, showing up to the first 10 pages -->
                 @for (int i = 1; i <= totalPages && i <= 10; i++)
                 {
                     <li class="page-item @(i == currentPage ? "active" : "")">
+                        <!-- Highlight current page -->
                         <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@i">@i</a>
                     </li>
                 }
 
+                <!-- "Next" button, which is shown if we are not on the last page -->
                 @if (currentPage < totalPages)
                 {
                     <li class="page-item">

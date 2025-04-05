@@ -2,36 +2,50 @@
 @model HomePageViewModel
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home"; // Set the page title to "Home"
 }
 
 <!-- Cover photo -->
+<!-- Display a full-width cover image for the homepage -->
 <div class="w-100" style="margin: 0; padding: 0;">
+    <!-- d-block: Ensures the image is a block-level element (takes up full width) -->
+    <!-- Styling for full-width image with cover fit -->
     <img src="~/img/cover.png"
          alt="Forsidebillede"
-         class="d-block"
+         class="d-block" 
          style="width: 100%; height: auto; object-fit: cover; margin: 0; padding: 0;" />
 </div>
 
 <!-- Genres -->
+<!-- Container for the content with top margin -->
 <div class="container mt-5">
+    <!-- Display header for Movies section -->
     <h2 class="text-white mb-3">Movies</h2>
 
+    <!-- Loop through each genre in the MovieGenres list -->
     @foreach (var genre in Model.MovieGenres)
     {
+        <!-- Container for each genre with bottom margin -->
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
+                <!-- Display the genre name and total count -->
                 <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
-                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
+                <!-- Link to see all movies in the genre -->
+                <a class="btn btn-outline-light btn-sm btn-see-all" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
             <!-- Movie List for this Genre -->
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
+                <!-- Loop through each movie in the genre -->
                 @foreach (var movie in genre.Movies)
                 {
+                    <!-- Column for each movie -->
                     <div class="col">
+                        <!-- Link to movie details page -->
                         <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
+                            <!-- Movie poster image -->
                             <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
+                            <!-- Movie title under the poster -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                         </a>
                     </div>
@@ -40,23 +54,33 @@
         </div>
     }
 
+    <!-- Display header for Series section -->
     <h2 class="text-white mb-3">Series</h2>
 
+    <!-- Loop through each genre in the SeriesGenres list -->
     @foreach (var genre in Model.SeriesGenres)
     {
+        <!-- Container for each genre with bottom margin -->
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
+                <!-- Display the genre name and total count -->
                 <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
-                <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">See all</a>
+                <!-- Link to see all series in the genre -->
+                <a class="btn btn-outline-light btn-sm btn-see-all" href="/Series/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
             <!-- Series List for this Genre -->
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
+                <!-- Loop through each series in the genre -->
                 @foreach (var series in genre.Series)
                 {
+                    <!-- Column for each series -->
                     <div class="col">
+                        <!-- Link to series details page -->
                         <a href="/Series/Details/@series.Id" style="text-decoration: none;">
+                            <!-- Series poster image -->
                             <img src="@series.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
+                            <!-- Series name under the poster -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                         </a>
                     </div>

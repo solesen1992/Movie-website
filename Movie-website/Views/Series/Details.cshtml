@@ -1,41 +1,53 @@
 ﻿@model Movie_website.Models.Series
 @{
+    // Set the title of the page to be the series name from the model
     ViewData["Title"] = @Model.Name;
+
+    // Get the value of 'IsInWishlist' from ViewBag, and default to false if it's not present
     var isInWishlist = ViewBag.IsInWishlist as bool? ?? false;
 }
 
 <div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
     <div class="container bg-dark bg-opacity-75 rounded p-4">
         <div class="row">
-            <!-- Making the website responsive-->
+            <!-- The following section handles the movie poster image and makes it responsive based on screen size -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-4 text-center">
+                <!-- Display the series poster image with responsive sizing, rounded corners, and a shadow effect -->
                 <img src="@Model.PosterUrl" class="img-fluid rounded shadow mx-auto d-block" alt="@Model.Name" />
             </div>
 
-            <!-- Making the website responsive-->
+            <!-- The following section contains the series details like title, description, genres, trailer, cast, and crew -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-8 container-mobile-tablet">
 
-                <!-- Title, description, genres -->
+                <!-- Display the series title and release year -->
                 <h1>@Model.Name (@Model.ReleaseYear)</h1>
+
+                <!-- Display the series description (overview) -->
                 <p>@Model.Overview</p>
+
+                <!-- Display the genres of the series, joined by a comma -->
                 <p><strong>Genres:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
 
-                <!-- Trailer -->
+
+                <!-- Check if a YouTube trailer is available, and display it -->
                 @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
                 {
+                    // Find the first trailer in the results
                     var trailer = Model.Videos.Results.First(v => v.Type == "Trailer" && v.Site == "YouTube");
                     <div class="mt-4">
+                        <!-- Embed the trailer video from YouTube using the trailer key -->
                         <iframe width="100%" height="315" src="https://www.youtube.com/embed/@trailer.Key" frameborder="0" allowfullscreen></iframe>
                     </div>
                 }
 
-                <!-- Cast and crew -->
+                <!-- Check if the series has cast members, and display the first 5 -->
                 @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
                 {
                     <div class="mt-4">
+                        <!-- Display the list of cast members -->
                         <h5>Cast</h5>
                         <ul>
-                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Tag de 5 første
+                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Display the first 5 actors
                             {
                                 <li>@actor.Name som @actor.Character</li>
                             }
@@ -43,13 +55,16 @@
                     </div>
                 }
 
+                <!-- Check if the series has crew members, and display directors -->
                 @if (Model.Credits?.Crew != null)
                 {
+                    // Filter crew members for those with the "Director" job
                     var directors = Model.Credits.Crew.Where(c => c.Job == "Director").ToList();
 
                     if (directors.Any())
                     {
                         <div class="mt-4">
+                            <!-- Display the list of directors -->
                             <h5>Crew@((directors.Count > 1) ? "er" : "")</h5>
                             <ul>
                                 @foreach (var dir in directors)

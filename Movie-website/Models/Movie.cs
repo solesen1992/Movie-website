@@ -1,6 +1,14 @@
 ﻿using Movie_website.ResponseModels;
 using System.Text.Json.Serialization;
 
+/*
+ * Movie
+ * 
+ * Represents a movie with details such as the title, overview, release date, poster path, and more. It includes 
+ * a `Genres` property for a list of genres, `Credits` for the cast and crew, and `Videos` for trailers or other videos.
+ * The properties are mapped directly from the JSON response of the TMDb API.
+ */
+
 namespace Movie_website.Models
 {
     public class Movie

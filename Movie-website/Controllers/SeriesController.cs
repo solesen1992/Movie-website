@@ -2,7 +2,7 @@
 using Movie_website.BusinessLogic;
 using Movie_website.ViewModels;
 
-/***************************************************************
+/*
  * SeriesController
  * 
  * This controller is responsible for handling everything related to displaying TV series in the application.
@@ -13,7 +13,9 @@ using Movie_website.ViewModels;
  * 
  * Some methods are async because they need to fetch data from an external API, which takes time.
  * Other methods are not async when they don't need to wait for data from outside.
- ***************************************************************/
+ * 
+ * The controller interacts with the SeriesLogic layer for the business logic associated with series.
+ */
 
 namespace Movie_website.Controllers
 {
@@ -22,17 +24,27 @@ namespace Movie_website.Controllers
         private readonly ISeriesLogic _seriesLogic;
 
 
-        /**
+        /*
          * Constructor
+         * 
+         * This constructor sets up the SeriesLogic to interact with the business logic layer.
          */
         public SeriesController(ISeriesLogic seriesLogic)
         {
             _seriesLogic = seriesLogic;
         }
 
+        /*
+         * Index()
+         * 
+         * This method displays the homepage for series. It fetches series by genre 
+         * and shows 6 series per genre on the homepage.
+         * 
+         * The method is asynchronous because it fetches data from an external API.
+         */
         public async Task<IActionResult> Index()
         {
-            // Get the list of manually desired genres from helper method
+            // Retrieve the desired genres for series via the SeriesLogic.
             var desiredGenres = _seriesLogic.GetDesiredGenres();
 
             var seriesGenres = new List<SeriesGenreViewModel>();
@@ -54,30 +66,31 @@ namespace Movie_website.Controllers
         /*
          * Genre(int id, string name, int page = 1)
          * 
-         * This method shows all series that belong to a specific genre. It fetches the series from an external API using ISeriesService.
+         * This method shows all series in a specific genre.
+         * The method is asynchronous as it fetches the series data from an external API.
          * 
-         * It is async because it needs to wait for the API to return data.
+         * It returns series for the selected genre and handles pagination.
          */
         public async Task<IActionResult> Genre(int id, string name, int page = 1)
         {
             // Get series from the business logic layer
             var result = await _seriesLogic.GetSeriesByGenreAsync(id, name, page, isIndexPage: false);
 
-            // Save the information for the view
+            // Pass necessary information to the view (genre name, total results, page number, genre ID)
             ViewBag.GenreName = name;
             ViewBag.TotalResults = result.TotalCount;
             ViewBag.Page = page;
             ViewBag.GenreId = id;
 
+            // Show the series in the view
             return View(result.Series);
         }
 
         /*
          * Details(int id)
          * 
-         * This method shows detailed information about one specific series. It fetches the details from an external API using ISeriesService.
-         * 
-         * It is async because it needs to wait for the API to return data.
+         * This method displays detailed information about a specific series.
+         * The method is asynchronous as it fetches data from the API.
          */
         public async Task<IActionResult> Details(int id)
         {

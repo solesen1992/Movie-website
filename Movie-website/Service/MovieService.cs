@@ -8,12 +8,10 @@ using System.Net.Http;
  * This service is responsible for communicating with The Movie Database API to fetch movie data.
  * 
  * What it does:
- * Fetches movies by genre (GetMoviesByGenreAsync)
- * Fetches available movie genres (GetGenresAsync)
- * Fetches details for a specific movie (GetMovieDetailsAsync)
+ * - Fetches movies by genre (GetMoviesByGenreAsync)
+ * - Fetches movie details (GetMovieDetailsAsync)
  * 
- * All methods are async because they make HTTP requests 
- * to an external API, which takes time.
+ * All methods are asynchronous (async) because they make HTTP requests to an external API, which may take time.
  */
 
 namespace Movie_website.Service
@@ -27,7 +25,8 @@ namespace Movie_website.Service
         /*
          * Constructor
          * 
-         * Sets up the HttpClient and reads API information (API key and base URL) from configuration.
+         * Initializes the HttpClient and reads the API key and base URL from configuration.
+         * The HttpClient is used for making HTTP requests to the API.
          */
         public MovieService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -39,9 +38,9 @@ namespace Movie_website.Service
         /*
          * GetMoviesByGenreAsync()
          * 
-         * This method fetches movies from The Movie Database API by a specific genre ID.
-         * It is async because it sends an HTTP request to the API and waits for the response.
-         * If the API returns no data or there is an error, it returns an empty list of movies.
+         * Fetches a list of movies for a specific genre from The Movie Database API.
+         * It is async because it sends an HTTP request and waits for the API response.
+         * If the API returns no data or an error occurs, it returns an empty list of movies.
          */
         public async Task<ApiListResponse<Movie>> GetMoviesByGenreAsync(int genreId, int page = 1)
         {
@@ -87,9 +86,10 @@ namespace Movie_website.Service
         /*
          * GetMovieDetailsAsync()
          * 
-         * This method fetches detailed information about one specific movie from The Movie Database API, including credits and videos.
-         * It is async because it sends an HTTP request to the API and waits for the response.
-         * If no data is returned or an error happens, it returns an empty Movie object.
+         * Fetches detailed information about a specific movie from The Movie Database API.
+         * The details include credits (actors, directors) and videos (e.g., trailers).
+         * It is async because it waits for the API response.
+         * If an error occurs, it returns an empty Movie object.
          */
         public async Task<Movie> GetMovieDetailsAsync(int movieId)
         {
