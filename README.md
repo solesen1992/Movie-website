@@ -18,6 +18,10 @@ Information about some of my coding choices.
 The project is built following the MVC pattern:
 
 - Model → For domain models like Movie, Series, Genre
+  
+- ResponseModels → Represent data received from the API)
+  
+- ViewModels → Represent the data that is specifically formatted and structured for display in the user interface.
 
 - View → For presenting the data in the frontend
 
