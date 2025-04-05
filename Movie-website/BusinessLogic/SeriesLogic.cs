@@ -23,15 +23,18 @@ namespace Movie_website.BusinessLogic
          * Heler method for the Index method.
          */
         // This method gets series by genre and maps it to a ViewModel
-        public async Task<SeriesGenreViewModel> GetSeriesByGenreAsync(int genreId, string genreName, int page = 1)
+        public async Task<SeriesGenreViewModel> GetSeriesByGenreAsync(int genreId, string genreName, int page = 1, bool isIndexPage = true)
         {
             var apiResponse = await _seriesService.GetSeriesByGenreAsync(genreId, page);
+
+            // Use the isIndexPage flag to decide how many movies to show
+            int seriesLimit = isIndexPage ? 6 : 20;
 
             return new SeriesGenreViewModel
             {
                 Id = genreId,
                 Name = genreName, // You can pass the actual genre name here if needed
-                Series = apiResponse.Results.Take(page == 1 ? 6 : 20).ToList(), // 6 on homepage, 20 on genre page
+                Series = apiResponse.Results.Take(seriesLimit).ToList(), // 6 on homepage, 20 on genre page
                 TotalCount = apiResponse.TotalResults
             };
         }

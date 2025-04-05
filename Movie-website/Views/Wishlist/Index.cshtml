@@ -1,11 +1,11 @@
 ﻿@model List<Movie_website.Models.Movie>
 
 <div class="container mt-5">
-    <h2 class="text-white">Min ønskeliste (@Model.Count film)</h2>
+    <h2 class="text-white">My wishlist (@Model.Count film)</h2>
 
     @if (!Model.Any())
     {
-        <p class="text-white">Din ønskeliste er tom 😢</p>
+        <p class="text-white">Your wishlist is empty</p>
     }
     else
     {
@@ -20,7 +20,7 @@
 
                     <form method="post" action="/Wishlist/RemoveAndReturn">
                         <input type="hidden" name="id" value="@movie.Id" />
-                        <button class="btn btn-outline-danger btn-sm w-100 mt-2">Fjern</button>
+                        <button class="btn btn-outline-danger btn-sm w-100 mt-2">Remove from wishlist</button>
                     </form>
                 </div>
             }

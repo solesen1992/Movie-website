@@ -24,7 +24,9 @@ namespace Movie_website.BusinessLogic
          */
         public async Task<HomePageViewModel> GetHomePageDataAsync()
         {
-            var desiredGenres = GetDesiredGenres(); // Helper method to return genre data
+            // Get the genres for movies and series separately
+            var movieGenres = _movieLogic.GetDesiredGenres();
+            var seriesGenres = _seriesLogic.GetDesiredGenres();
 
             var homepageViewModel = new HomePageViewModel
             {
@@ -33,14 +35,17 @@ namespace Movie_website.BusinessLogic
             };
 
             // Fetch movie and series data for each genre
-            foreach (var genre in desiredGenres)
+            foreach (var genre in movieGenres)
             {
                 var movieGenre = await _movieLogic.GetMoviesByGenreAsync(genre.Id, genre.Name);
                 if (movieGenre != null)
                 {
                     homepageViewModel.MovieGenres.Add(movieGenre);
                 }
+            }
 
+            foreach (var genre in seriesGenres)
+            {
                 var seriesGenre = await _seriesLogic.GetSeriesByGenreAsync(genre.Id, genre.Name);
                 if (seriesGenre != null)
                 {

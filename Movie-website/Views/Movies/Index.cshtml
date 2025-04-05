@@ -1,19 +1,19 @@
 ﻿@using Movie_website.ViewModels
 @model List<MovieGenreViewModel>
 @{
-    ViewData["Title"] = "Film - Opdelt efter genre";
+    ViewData["Title"] = "Movies - Sorted by genres";
 }
 
 <div class="container mt-5">
-    <h1 class="text-white mb-3">Film - Opdelt efter genre</h1>
+    <h1 class="text-white mb-3">Movies - Sorted by genres</h1>
     </br>
 
     @foreach (var genre in Model)
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h2 class="text-white">@genre.Name (@genre.TotalCount i alt)</h2>
-                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+                <h2 class="text-white">@genre.Name (@genre.TotalCount in total)</h2>
+                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
             <!-- Movie List for this Genre -->

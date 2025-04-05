@@ -2,7 +2,7 @@
 @model HomePageViewModel
 
 @{
-    ViewData["Title"] = "Forside";
+    ViewData["Title"] = "Home";
 }
 
 <!-- Cover photo -->
@@ -15,23 +15,23 @@
 
 <!-- Genres -->
 <div class="container mt-5">
-    <h2 class="text-white mb-3">Film</h2>
+    <h2 class="text-white mb-3">Movies</h2>
 
     @foreach (var genre in Model.MovieGenres)
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h3 class="text-white">@genre.Name (@genre.TotalCount i alt)</h3>
-                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+                <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
+                <a class="btn btn-outline-light btn-sm" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
-            <!--Columns-->
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
+            <!-- Movie List for this Genre -->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
                 @foreach (var movie in genre.Movies)
                 {
                     <div class="col">
                         <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
-                            <img src="@movie.PosterUrl" class="img-fluid rounded shadow" style="width: 100%; height: 225px; object-fit: contain;" alt="@movie.Title" />
+                            <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                         </a>
                     </div>
@@ -40,22 +40,23 @@
         </div>
     }
 
-    <h2 class="text-white mb-3">Serier</h2>
+    <h2 class="text-white mb-3">Series</h2>
 
     @foreach (var genre in Model.SeriesGenres)
     {
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h3 class="text-white">@genre.Name (@genre.TotalCount i alt)</h3>
-                <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">Se alle</a>
+                <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
+                <a class="btn btn-outline-light btn-sm" href="/Series/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
-            <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4">
+            <!-- Series List for this Genre -->
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
                 @foreach (var series in genre.Series)
                 {
                     <div class="col">
                         <a href="/Series/Details/@series.Id" style="text-decoration: none;">
-                            <img src="@series.PosterUrl" class="img-fluid rounded shadow" style="width: 100%; height: 225px; object-fit: contain;" alt="@series.Name" />
+                            <img src="@series.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                         </a>
                     </div>

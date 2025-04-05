@@ -32,3 +32,43 @@ body {
 .navbar-custom {
     background-color: #0d0c1d;
 }
+
+/* Applies 0rem padding on mobile on detail page */
+@media (max-width: 768px) {
+    .detail-container-mobile {
+        padding: 0rem !important;
+    }
+}
+
+/* 
+    Content styling on mobile and tablet on detail page
+    Makes space between the movie/series photo and the headline/name
+*/
+@media (max-width: 820px) {
+    .container-mobile-tablet {
+        padding-top: 2rem !important; /* Only adds padding to the top */
+    }
+}
+
+/* 
+    Editing the navigation at the button of each genre.
+*/
+.page-item.active .page-link {
+    background-color: #8c52ff;
+    border-color: #8c52ff;
+}
+
+.page-link {
+    color: #8c52ff;
+}
+
+/*
+    Colors on 'see all' buttons
+*/
+.btn-outline-light {
+    border-color: #8c52ff;
+}
+
+.btn {
+    background-color: #8c52ff;
+}

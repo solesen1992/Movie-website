@@ -39,7 +39,7 @@ namespace Movie_website.Controllers
             foreach (var genre in desiredGenres)
             {
                 // Fetch series for each genre using the business logic layer
-                var seriesGenre = await _seriesLogic.GetSeriesByGenreAsync(genre.Id, genre.Name, page: 1);
+                var seriesGenre = await _seriesLogic.GetSeriesByGenreAsync(genre.Id, genre.Name, page: 1, isIndexPage: true);
                 if (seriesGenre != null)
                 {
                     seriesGenres.Add(seriesGenre);
@@ -61,7 +61,7 @@ namespace Movie_website.Controllers
         public async Task<IActionResult> Genre(int id, string name, int page = 1)
         {
             // Get series from the business logic layer
-            var result = await _seriesLogic.GetSeriesByGenreAsync(id, name, page);
+            var result = await _seriesLogic.GetSeriesByGenreAsync(id, name, page, isIndexPage: false);
 
             // Save the information for the view
             ViewBag.GenreName = name;

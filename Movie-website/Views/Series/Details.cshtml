@@ -7,20 +7,20 @@
 <div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
     <div class="container bg-dark bg-opacity-75 rounded p-4">
         <div class="row">
-            <div class="col-md-4">
-                <img src="@Model.PosterUrl" class="img-fluid rounded shadow" alt="@Model.Name" />
+            <!-- Making the website responsive-->
+            <div class="row-cols-12 col-sm-12 col-md-12 col-lg-4 text-center">
+                <img src="@Model.PosterUrl" class="img-fluid rounded shadow mx-auto d-block" alt="@Model.Name" />
             </div>
-            <div class="col-md-8">
+
+            <!-- Making the website responsive-->
+            <div class="row-cols-12 col-sm-12 col-md-12 col-lg-8 container-mobile-tablet">
+
+                <!-- Title, description, genres -->
                 <h1>@Model.Name (@Model.ReleaseYear)</h1>
                 <p>@Model.Overview</p>
+                <p><strong>Genres:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
 
-                @* GENRER *@
-                @if (Model.Genres != null && Model.Genres.Any())
-                {
-                    <p><strong>Genrer:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
-                }
-
-                @* Trailer *@
+                <!-- Trailer -->
                 @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
                 {
                     var trailer = Model.Videos.Results.First(v => v.Type == "Trailer" && v.Site == "YouTube");
@@ -29,28 +29,28 @@
                     </div>
                 }
 
-                @* Cast *@
+                <!-- Cast and crew -->
                 @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
                 {
                     <div class="mt-4">
                         <h5>Cast</h5>
                         <ul>
-                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Take first 5
+                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Tag de 5 første
                             {
-                                <li>@actor.Name as @actor.Character</li>
+                                <li>@actor.Name som @actor.Character</li>
                             }
                         </ul>
                     </div>
                 }
 
-                @* Directors *@
                 @if (Model.Credits?.Crew != null)
                 {
                     var directors = Model.Credits.Crew.Where(c => c.Job == "Director").ToList();
+
                     if (directors.Any())
                     {
                         <div class="mt-4">
-                            <h5>Director@((directors.Count > 1) ? "s" : "")</h5>
+                            <h5>Crew@((directors.Count > 1) ? "er" : "")</h5>
                             <ul>
                                 @foreach (var dir in directors)
                                 {

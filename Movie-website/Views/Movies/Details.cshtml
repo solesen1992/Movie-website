@@ -3,36 +3,38 @@
     var isInWishlist = ViewBag.IsInWishlist as bool? ?? false;
 }
 
-<div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
+<div class="text-white detail-container-mobile" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
     <div class="container bg-dark bg-opacity-75 rounded p-4">
         <div class="row">
-            <div class="col-md-4">
-                <img src="@Model.PosterUrl" class="img-fluid rounded shadow" />
+            <!-- Making the website responsive-->
+            <div class="row-cols-12 col-sm-12 col-md-12 col-lg-4 text-center">
+                <img src="@Model.PosterUrl" class="img-fluid rounded shadow mx-auto d-block" />
             </div>
-            <div class="col-md-8">
-
-                <!-- Wishlist buttons -->
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                @if (isInWishlist)
-                {
-                    <form method="post" action="/Wishlist/Remove">
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <button class="btn btn-danger">Fjern fra ønskeliste</button>
-                    </form>
-                }
-                else
-                {
-                    <form method="post" action="/Wishlist/Add">
-                        <input type="hidden" name="id" value="@Model.Id" />
-                        <button class="btn btn-success">Tilføj til ønskeliste</button>
-                    </form>
-                }
-                </div>
-
+            <!-- Making the website responsive-->
+            <div class="row-cols-12 col-sm-12 col-md-12 col-lg-8 container-mobile-tablet">
+                
                 <!-- Title, description, genres -->
                 <h1>@Model.Title (@Model.ReleaseYear)</h1>
                 <p>@Model.Overview</p>
                 <p><strong>Genres:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
+
+                <!-- Wishlist button -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    @if (isInWishlist)
+                    {
+                        <form method="post" action="/Wishlist/Remove">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button class="btn btn-danger">Remove from wishlist</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" action="/Wishlist/Add">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button class="btn btn-success">Add to wishlist</button>
+                        </form>
+                    }
+                </div>
 
                 <!-- Trailer -->
                 @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
@@ -47,7 +49,7 @@
                 @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
                 {
                     <div class="mt-4">
-                        <h5>Skuespillere</h5>
+                        <h5>Cast</h5>
                         <ul>
                             @foreach (var actor in Model.Credits.Cast.Take(5)) // Tag de 5 første
                             {
@@ -64,7 +66,7 @@
                     if (directors.Any())
                     {
                         <div class="mt-4">
-                            <h5>Instruktør@((directors.Count > 1) ? "er" : "")</h5>
+                            <h5>Crew@((directors.Count > 1) ? "er" : "")</h5>
                             <ul>
                                 @foreach (var dir in directors)
                                 {
