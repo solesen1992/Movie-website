@@ -9,7 +9,7 @@ Open the project in Visual Studio and run it in https mode.
 This will start the website locally in your browser.
 
 # 🖼️ Screenshot of website frontpage
-
+![Image](https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc)
 
 # 📄 Documentation
 Information about some of my coding choices.
