@@ -85,6 +85,9 @@ public HomeController(IMovieService movieService, ISeriesService seriesService)
 ✅ Better separation of concerns and low coupling between layers.
 
 ## 🚀 Async vs sync
+Some methods are marked with the async keyword while others are not. This is because only methods that involve waiting for something external – like an API call – need to be asynchronous.
+
+An async method allows the program to continue running other code while it waits for something to finish. This keeps the app responsive and fast, especially when calling external APIs like The Moviedatabase.
 
 ## 📄 Interfaces
 The project uses interfaces (e.g. IMovieService, ISeriesService) to create low coupling between layers.
