@@ -33,7 +33,7 @@ The project is built following the MVC pattern:
 
 - Model → For domain models like Movie, Series, Genre
   
-- ResponseModels → Represent data received from the API)
+- ResponseModels → Represent data received from the API
   
 - ViewModels → Represent the data that is specifically formatted and structured for display in the user interface.
 
