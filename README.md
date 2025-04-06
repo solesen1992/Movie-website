@@ -4,10 +4,20 @@ I chose to build it using the MVC pattern (Model-View-Controller) because I have
 
 It was my first time fetching and working with data from an external API that I didn’t create myself, which was a great learning experience. My main focus was on figuring out how to connect to The Movie Database API, read the JSON data, and show the right information in the application.
 
-## 🚀 How to open the file
-- Open the project in Visual Studio and run it in https mode.
+## 🚀 How to open the file in Visual Studio
+✅ Copy the HTTPS Link
+- Click the green "Code" button and copy the link under the HTTPS section (it looks like https://github.com/solesen1992/Movie-website.git).
 
-- This will start the website locally in your browser.
+✅ Open Visual Studio
+
+✅ Clone the Repository
+- Click "Clone a repository" on the start screen.
+- Paste the copied HTTPS link into the URL field.
+- Choose a local path where you want the project to be saved.
+- Click "Clone".
+
+✅ Run the Project
+- Once the project is opened in Visual Studio, click the green "Start" button and run it in https (it looks like a play icon) to run the application.
 
 # 🖼️ Screenshot of website frontpage
 <img width="700" alt="Image" src="https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc" />
