@@ -5,8 +5,9 @@ I chose to build it using the MVC pattern (Model-View-Controller) because I have
 It was my first time fetching and working with data from an external API that I didn’t create myself, which was a great learning experience. My main focus was on figuring out how to connect to The Movie Database API, read the JSON data, and show the right information in the application.
 
 ## 🚀 How to open the file
-Open the project in Visual Studio and run it in https mode.
-This will start the website locally in your browser.
+- Open the project in Visual Studio and run it in https mode.
+
+- This will start the website locally in your browser.
 
 # 🖼️ Screenshot of website frontpage
 ![Image](https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc)
