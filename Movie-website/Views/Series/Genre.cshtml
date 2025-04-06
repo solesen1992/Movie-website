@@ -1,13 +1,45 @@
 ﻿@model List<Movie_website.Models.Series>
 @{
-    // The model for this view is a list of Series, representing TV series data.
-    var genreName = ViewBag.GenreName as string ?? "Genre"; // Retrieve genre name from ViewBag or set default to "Genre"
-    var genreId = ViewBag.GenreId as int? ?? 0; // Retrieve genre ID from ViewBag or set default to 0
-    var total = ViewBag.TotalResults as int? ?? 0; // Retrieve the total number of series from ViewBag
-    var currentPage = ViewBag.Page as int? ?? 1; // Retrieve the current page number from ViewBag, default to 1 if not present
-    int pageSize = 20; // Set page size to 20 series per page
-    int totalPages = (int)Math.Ceiling((double)total / pageSize); // Calculate the total number of pages based on the total count and page size
+    // Default values
+    string genreName = "Genre";
+    int genreId = 0;
+    int total = 0;
+    int currentPage = 1;
+    int pageSize = 20;
+    int totalPages = 0;
+
+    // Try to get GenreName from ViewBag
+    if (ViewBag.GenreName != null)
+    {
+        genreName = (string)ViewBag.GenreName;
+    }
+
+    // Try to get GenreId from ViewBag
+    if (ViewBag.GenreId != null)
+    {
+        genreId = (int)ViewBag.GenreId;
+    }
+
+    // Try to get TotalResults from ViewBag
+    if (ViewBag.TotalResults != null)
+    {
+        total = (int)ViewBag.TotalResults;
+    }
+
+    // Try to get current page number from ViewBag
+    if (ViewBag.Page != null)
+    {
+        currentPage = (int)ViewBag.Page;
+    }
+
+    // Calculate total number of pages based on total and page size
+    if (pageSize > 0)
+    {
+        totalPages = (int)Math.Ceiling((double)total / pageSize);
+    }
 }
+
+<!-- BEGINNING OF CONTENT -->
 
 <div class="container mt-5">
     <!-- Main header displaying the genre name and total series count -->
@@ -44,13 +76,27 @@
                     </li>
                 }
 
-                <!-- Page number links, showing up to the first 10 pages -->
-                @for (int i = 1; i <= totalPages && i <= 10; i++)
-                {
-                    <li class="page-item @(i == currentPage ? "active" : "")">
-                        <!-- Highlight current page -->
-                        <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@i">@i</a>
-                    </li>
+                <!-- Show page number links, up to the first 10 pages -->
+                @{
+                    int maxPagesToShow = 10;
+
+                    for (int i = 1; i <= totalPages && i <= maxPagesToShow; i++)
+                    {
+                        // Set the CSS class for the page item
+                        string cssClass = "page-item";
+
+                        // If this is the current page, add 'active' class
+                        if (i == currentPage)
+                        {
+                            cssClass += " active";
+                        }
+                        <li class="@cssClass">
+                            <!-- Make each page number a link -->
+                            <a class="page-link" href="/Series/Genre?id=@genreId&name=@genreName&page=@i">
+                                @i
+                            </a>
+                        </li>
+                    }
                 }
 
                 <!-- "Next" button, which is shown if we are not on the last page -->

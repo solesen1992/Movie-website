@@ -1,25 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Set character encoding -->
     <meta charset="utf-8" />
+
+    <!-- Make the page responsive on all screen sizes -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Set the page title dynamically from the view -->
     <title>@ViewData["Title"] - Movie_website</title>
+
+    <!-- Load Bootstrap CSS for layout and components -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Load custom site-wide styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!-- Load styles generated for this Razor project -->
     <link rel="stylesheet" href="~/Movie_website.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <!-- HEADER -->
+
+    <!-- HEADER (Top navigation bar) -->
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
             <div class="container-fluid">
+                <!-- Logo that links to the home page -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/img/movie-logo.png" alt="Logo" height="40" />
                 </a>
+
+                <!-- Toggle button for collapsing menu on small screens -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Main navigation links -->
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -40,22 +57,42 @@
         </nav>
     </header>
 
-    <!-- CONTENT -->
+    <!-- MAIN CONTENT AREA -->
     <div class="container-fluid">
         <main role="main" class="pb-3">
+            <!-- This is where each view will inject its content -->
             @RenderBody()
         </main>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="border-top footer text-muted">
+    <!-- FOOTER (Bottom of the page) -->
+    <footer class="border-top footer text-muted mt-4">
         <div class="container">
-            &copy; 2025 - Movie_website - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <!-- Left side: copyright -->
+                <div class="row-cols-12 col-sm-12 col-md-6 col-lg-4">
+                    </br>
+                    &copy; 2025 - Movie database
+                </div>
+
+                <!-- Right side: footer menu links -->
+                <div class="row-cols-12 col-sm-12 col-md-6 col-lg-8 text-md-end mt-2 mt-md-0">
+                    </br>
+                    <a class="text-muted me-3" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="text-muted me-3" asp-controller="Movies" asp-action="Index">Movies</a>
+                    <a class="text-muted me-3" asp-controller="Series" asp-action="Index">Tv-series</a>
+                    <a class="text-muted me-3" asp-controller="Wishlist" asp-action="Index">My wishlist</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Load JavaScript libraries -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Optional section for additional scripts (e.g., from views) -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -4,8 +4,18 @@
     ViewData["Title"] = @Model.Name;
 
     // Get the value of 'IsInWishlist' from ViewBag, and default to false if it's not present
-    var isInWishlist = ViewBag.IsInWishlist as bool? ?? false;
+    // Start by assuming the movie is not in the wishlist
+    bool isInWishlist = false;
+
+    // Check if ViewBag contains a value for 'IsInWishlist'
+    if (ViewBag.IsInWishlist != null)
+    {
+        // Safely convert it to a boolean
+        isInWishlist = (bool)ViewBag.IsInWishlist;
+    }
 }
+
+<!-- BEGINNING OF CONTENT -->
 
 <div class="text-white" style="background-image: url('@Model.BackdropUrl'); background-size: cover; padding: 4rem; min-height: 80vh;">
     <div class="container bg-dark bg-opacity-75 rounded p-4">
@@ -26,46 +36,108 @@
                 <p>@Model.Overview</p>
 
                 <!-- Display the genres of the series, joined by a comma -->
-                <p><strong>Genres:</strong> @string.Join(", ", Model.Genres.Select(g => g.Name))</p>
+                @if (Model.Genres != null && Model.Genres.Count > 0)
+                {
+                    <p>
+                        <strong>Genres:</strong>
+                        @{
+                            string genreList = "";
+                            int index = 0;
+                            int totalGenres = Model.Genres.Count;
 
+                            foreach (var genre in Model.Genres)
+                            {
+                                genreList += genre.Name;
+
+                                // Add comma and space unless it's the last genre
+                                if (index < totalGenres - 1)
+                                {
+                                    genreList += ", ";
+                                }
+
+                                index++;
+                            }
+                        }
+                        @genreList
+                    </p>
+                }
 
                 <!-- Check if a YouTube trailer is available, and display it -->
-                @if (Model.Videos?.Results?.Any(v => v.Type == "Trailer" && v.Site == "YouTube") == true)
+                @if (Model.Videos != null && Model.Videos.Results != null)
                 {
-                    // Find the first trailer in the results
-                    var trailer = Model.Videos.Results.First(v => v.Type == "Trailer" && v.Site == "YouTube");
-                    <div class="mt-4">
-                        <!-- Embed the trailer video from YouTube using the trailer key -->
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/@trailer.Key" frameborder="0" allowfullscreen></iframe>
-                    </div>
+                    Video trailer = null;
+
+                    foreach (var video in Model.Videos.Results)
+                    {
+                        if (video.Type == "Trailer" && video.Site == "YouTube")
+                        {
+                            trailer = video;
+                            break; // stop after finding the first matching trailer
+                        }
+                    }
+
+                    if (trailer != null)
+                    {
+                        <div class="mt-4">
+                            <iframe width="100%" height="315"
+                                    src="https://www.youtube.com/embed/@trailer.Key"
+                                    frameborder="0"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    }
                 }
 
                 <!-- Check if the series has cast members, and display the first 5 -->
-                @if (Model.Credits?.Cast != null && Model.Credits.Cast.Any())
+                @if (Model.Credits != null && Model.Credits.Cast != null && Model.Credits.Cast.Count > 0)
                 {
                     <div class="mt-4">
-                        <!-- Display the list of cast members -->
                         <h5>Cast</h5>
                         <ul>
-                            @foreach (var actor in Model.Credits.Cast.Take(5)) // Display the first 5 actors
-                            {
-                                <li>@actor.Name som @actor.Character</li>
+                            @{
+                                int count = 0;
+
+                                foreach (var actor in Model.Credits.Cast)
+                                {
+                                    <li>@actor.Name som @actor.Character</li>;
+                                    count++;
+
+                                    if (count == 5)
+                                    {
+                                        break; // stop after 5 actors
+                                    }
+                                }
                             }
                         </ul>
                     </div>
                 }
 
                 <!-- Check if the series has crew members, and display directors -->
-                @if (Model.Credits?.Crew != null)
+                @if (Model.Credits != null && Model.Credits.Crew != null)
                 {
-                    // Filter crew members for those with the "Director" job
-                    var directors = Model.Credits.Crew.Where(c => c.Job == "Director").ToList();
+                    List<Crew> directors = new List<Crew>();
 
-                    if (directors.Any())
+                    foreach (var crew in Model.Credits.Crew)
+                    {
+                        if (crew.Job == "Director")
+                        {
+                            directors.Add(crew);
+                        }
+                    }
+
+                    if (directors.Count > 0)
                     {
                         <div class="mt-4">
-                            <!-- Display the list of directors -->
-                            <h5>Crew@((directors.Count > 1) ? "er" : "")</h5>
+                            <h5>
+                                @if (directors.Count == 1)
+                                {
+                                    @:Director
+                                }
+                                else
+                                {
+                                    @:Directors
+                                }
+                            </h5>
                             <ul>
                                 @foreach (var dir in directors)
                                 {
