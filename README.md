@@ -71,9 +71,11 @@ builder.Services.AddHttpClient<ISeriesService, SeriesService>();
 ASP.NET Core provides a built-in HttpClient Factory (IHttpClientFactory), which is used here through .AddHttpClient(). It solves two common problems:
 
 ✅ Socket exhaustion
+
 If you create a new HttpClient instance manually each time (using new HttpClient()), the application will eventually run out of available sockets because each client creates a new TCP connection. HttpClientFactory reuses connections behind the scenes, preventing this problem.
 
 ✅ DNS update issues
+
 When an API's IP address changes (e.g., The Movie Database's server moves), a manually created HttpClient would continue using the old IP because it caches DNS information forever. HttpClientFactory automatically handles DNS updates by renewing connection handlers.
 
 ### Dependency Injection (DI) usage
