@@ -1,6 +1,6 @@
 # 🎬 Movie website
 This project was made as a part of Wexo's code challenge.
-I chose to build it using the MVC pattern (Model-View-Controller) because I have worked with it once before and wanted to challenge myself.
+I chose to build it using the MVC pattern (Model-View-Controller) because I have worked with it once before.
 
 It was my first time fetching and working with data from an external API that I didn’t create myself, which was a great learning experience. My main focus was on figuring out how to connect to The Movie Database API, read the JSON data, and show the right information in the application.
 
