@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
  * 
  * This model represents the `results` array under the `videos` property in the response from The Movie Database API.
  * It contains a list of video objects (such as trailers or clips), each of which includes information like `id`, `key`, `type`, and `site`.
- * This class helps map video data to C# objects for easier handling and display in the frontend.
+ * This class helps map video data to C# objects for easier handling.
  */
 
 namespace Movie_website.ResponseModels

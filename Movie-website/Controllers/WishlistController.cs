@@ -34,7 +34,7 @@ namespace Movie_website.Controllers
     {
         private readonly IMovieService _movieService;
 
-        /**
+        /*
          * Constructor
          */
         public WishlistController(IMovieService movieService)

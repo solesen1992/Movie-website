@@ -37,9 +37,7 @@ namespace Movie_website.Controllers
         /*
          * Index()
          * 
-         * This method displays the homepage for series. It fetches series by genre 
-         * and shows 6 series per genre on the homepage.
-         * 
+         * This method displays the homepage for series. It fetches series by genre.
          * The method is asynchronous because it fetches data from an external API.
          */
         public async Task<IActionResult> Index()

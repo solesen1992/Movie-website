@@ -4,14 +4,16 @@ using System.Text.Json;
 /*
  * SessionExtensions
  * 
- * This is a helper class that simplifies working with the session by enabling the saving and loading of objects.
- * Normally, the Session in ASP.NET Core can only store basic types such as strings, integers, etc. 
- * To store more complex data types like lists or custom objects, we need to serialize them into a string format.
- * This class provides extension methods to make this process seamless.
+ * This helper class makes it easy to save and load data in the session.
  * 
- * The main methods are:
- * - Set<T>: Saves any object in the session by serializing it into a JSON string.
- * - Get<T>: Retrieves an object from the session and deserializes it back into the original object type.
+ * In ASP.NET Core, Session can normally only store simple data like strings or integers.
+ * But what if you want to store more advanced data — like a list of movie IDs? 
+ * To do that, we need to "convert" the object into a string using JSON (serialization).
+ * Later, we can "convert it back" into its original form (deserialization).
+ * 
+ * It has two main methods:
+ * - Set<T>: Saves any object into session as a JSON string.
+ * - Get<T>: Loads the object back from session and turns it back into the original type.
  */
 
 namespace Movie_website.Extensions
@@ -19,15 +21,17 @@ namespace Movie_website.Extensions
     // This is a static helper class to make it easy to save and load objects in Session
     public static class SessionExtensions
     {
-        /* 
+        /*
          * Set<T> method
          * 
-         * This method is an extension for ISession that allows saving an object into the session.
-         * It serializes the object to a JSON string and saves it in the session using a specified key.
+         * This method saves an object in the session.
          * 
-         * The <T> is a generic type parameter, allowing this method to work with any type of object. 
-         * This means that we can save any object, whether it’s a simple string, an integer, or even a complex list or model, 
-         * without needing multiple overloads for different types.
+         * How it works:
+         * - Takes the object (for example: a List<int> of movie IDs)
+         * - Turns it into a JSON string
+         * - Stores that string in session under the given key (like "wishlist")
+         * 
+         * <T> means this method works for ANY type: a string, a number, a list, or even a full model like Movie.
          */
         public static void Set<T>(this ISession session, string key, T value)
         {
@@ -41,17 +45,14 @@ namespace Movie_website.Extensions
         /*
          * Get<T> method
          * 
-         * This method loads an object from the session
+         * This method reads an object from the session.
          * 
-         * This method is an extension for ISession that allows retrieving an object from the session.
-         * It reads the JSON string from the session and deserializes it back into the original object type.
-         * The <T> is the generic type parameter, which allows the method to return any object type.
+         * How it works:
+         * - Looks for a JSON string in session using the key (like "wishlist")
+         * - If it finds something, it turns the string back into the original object (like List<int>)
+         * - If there's nothing saved, it returns null or an empty value
          * 
-         * Why do we use <T>? The <T> type allows this method to work flexibly with different types of objects.
-         * You don't need separate methods for each type (e.g., GetString(), GetInt(), GetList()). 
-         * Instead, you just call Get<T>(), specifying the type you expect to retrieve, and it will be handled automatically.
-         * 
-         * If no data is found in the session for the given key, it returns the default value (null or the default type value).
+         * <T> again means this works for ANY type, and you tell it what to expect.
          */
         public static T Get<T>(this ISession session, string key)
         {

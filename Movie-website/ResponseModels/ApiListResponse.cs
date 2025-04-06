@@ -3,7 +3,7 @@
 /*
  * ApiListResponse<T>
  * 
- * This model represents the JSON structure returned by The Movie Database API when you request a list of movies or series.
+ * This model represents the top-level JSON structure returned by The Movie Database API when you request a list of movies or series.
  * 
  * It is a generic class, meaning it can be used for both movies and series (or any other objects) by using the type parameter <T>.
  * 
@@ -19,15 +19,20 @@ namespace Movie_website.ResponseModels
 {
     public class ApiListResponse<T>
     {
+        // The "results" array from the API response.
+        // Each item is deserialized into a T object (e.g., Movie or Series).
         [JsonPropertyName("results")]
         public List<T> Results { get; set; }
 
+        // The current page number of the results.
         [JsonPropertyName("page")]
         public int Page { get; set; }
 
+        // The total number of pages available for the request.
         [JsonPropertyName("total_pages")]
         public int TotalPages { get; set; }
 
+        // The total number of results available across all pages (not just the current page).
         [JsonPropertyName("total_results")]
         public int TotalResults { get; set; }
     }

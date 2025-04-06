@@ -37,8 +37,6 @@ namespace Movie_website.Controllers
          * Index()
          * 
          * Fetches the homepage data, including movies and series for the specified genres.
-         * It displays a preview of 6 movies/series per genre on the homepage.
-         * 
          * This method is asynchronous as it fetches data from external services.
          */
         public async Task<IActionResult> Index()

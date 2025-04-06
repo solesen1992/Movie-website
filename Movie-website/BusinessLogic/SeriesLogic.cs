@@ -74,7 +74,7 @@ namespace Movie_website.BusinessLogic
          * be displayed in the application, which vary depending on the category (movies vs. series).
          * 
          * This method is important for keeping the genres consistent across the application and can be 
-         * updated if the list of genres becomes dynamic or fetched from an external source.
+         * updated if the list of genres becomes fetched from an external source.
          * 
          * @returns A list of tuples containing genre ID and name for series.
          */

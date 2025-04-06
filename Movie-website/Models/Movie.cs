@@ -4,9 +4,16 @@ using System.Text.Json.Serialization;
 /*
  * Movie
  * 
- * Represents a movie with details such as the title, overview, release date, poster path, and more. It includes 
- * a `Genres` property for a list of genres, `Credits` for the cast and crew, and `Videos` for trailers or other videos.
- * The properties are mapped directly from the JSON response of the TMDb API.
+ * This model represents a single movie, including details like title, overview, release date,
+ * poster path, genres, credits, and videos.
+ * 
+ * Each property is mapped directly from the JSON response returned by the The Moviedatabase API.
+ * 
+ * The [JsonPropertyName()] attribute is necessary here as well, because The Moviedatabase API returns
+ * property names in snake_case (e.g., "release_date", "poster_path"), while C# follows PascalCase.
+ * 
+ * By using this attribute, we ensure that each JSON field is correctly mapped to the corresponding
+ * C# property during deserialization.
  */
 
 namespace Movie_website.Models
