@@ -28,8 +28,37 @@ namespace Movie_website.Models
         [JsonPropertyName("poster_path")]
         public string PosterPath { get; set; }
 
-        public string PosterUrl => string.IsNullOrEmpty(PosterPath) ? "" : $"https://image.tmdb.org/t/p/w500{PosterPath}";
-        public string ReleaseYear => !string.IsNullOrEmpty(FirstAirDate) ? FirstAirDate[..4] : "";
+        // Gets the URL for the cover photo
+        public string PosterUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(PosterPath))
+                {
+                    return "/img/poster-not-available.jpg"; // No poster is available
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/w500" + PosterPath;
+                }
+            }
+        }
+
+        // Gets the release year - but only the first 4 signs
+        public string ReleaseYear
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(FirstAirDate))
+                {
+                    return FirstAirDate.Substring(0, 4); // For example "2023-10-01" → "2023"
+                }
+                else
+                {
+                    return ""; // Unknown year
+                }
+            }
+        }
 
         [JsonPropertyName("genres")]
         public List<Genre> Genres { get; set; }
@@ -43,6 +72,20 @@ namespace Movie_website.Models
         [JsonPropertyName("backdrop_path")]
         public string BackdropPath { get; set; }
 
-        public string BackdropUrl => string.IsNullOrEmpty(BackdropPath) ? "" : $"https://image.tmdb.org/t/p/original{BackdropPath}";
+        // Gets the URL for the background photo
+        public string BackdropUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(BackdropPath))
+                {
+                    return "/img/no-backdrop-available.jpg"; // If no background photo is available
+                }
+                else
+                {
+                    return "https://image.tmdb.org/t/p/original" + BackdropPath;
+                }
+            }
+        }
     }
 }

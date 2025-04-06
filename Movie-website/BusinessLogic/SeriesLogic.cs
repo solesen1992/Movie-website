@@ -55,7 +55,7 @@ namespace Movie_website.BusinessLogic
 
             // Use the isIndexPage flag to decide how many movies to show
             // If we are on the homepage, show 6 series; otherwise, show 20 series
-            int seriesLimit = isIndexPage ? 6 : 20;
+            int seriesLimit = isIndexPage ? 6 : 18;
 
             // The object that is being returned, which contains the data we want to display in the view
             return new SeriesGenreViewModel

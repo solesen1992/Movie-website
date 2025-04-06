@@ -9,9 +9,7 @@
 
 <!-- Container for the page content, with margin-top of 5 for spacing -->
 <div class="container mt-5">
-    <!-- Main heading for the page that displays 'Tv-series - Sorted by genres' -->
     <h1 class="text-white mb-3">Tv-series - Sorted by genres</h1>
-    <!-- Line break for spacing -->
     </br>
 
     <!-- Loop through each genre in the Model (List<SeriesGenreViewModel>) -->
@@ -21,24 +19,19 @@
         <div class="mb-5">
             <!-- Flex container for the genre title and the 'See all' button -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <!-- Display genre name and total count of series in that genre -->
                 <h2 class="text-white">@genre.Name (@genre.TotalCount in total)</h2>
-                <!-- Link to view all series in that genre -->
                 <a class="btn btn-outline-light btn-sm btn-see-all" href="/Series/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
             <!-- Series List for this Genre -->
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
-                <!-- Loop through each series in the genre's list of Series -->
                 @foreach (var series in genre.Series)
                 {
                     <!-- Each series is displayed in a column -->
                     <div class="col">
-                        <!-- Link to the details page for each series -->
+                        <!-- Link to the details page for each series, adding series poster image (styled with img-fluid to be responsive) + series title -->
                         <a href="/Series/Details/@series.Id" style="text-decoration: none;">
-                            <!-- Series poster image, styled with img-fluid to be responsive -->
                             <img src="@series.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
-                            <!-- Series title displayed under the image -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                         </a>
                     </div>

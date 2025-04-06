@@ -50,14 +50,15 @@ namespace Movie_website.BusinessLogic
          * - A MovieGenreViewModel that contains the list of movies, genre name, and total number of results.
          * 
          * Why async?
-         * - This method is asynchronous because it makes an external API call, which takes time. The async/await pattern allows the app to stay responsive while the data is being fetched.
+         * - This method is asynchronous because it makes an external API call, which takes time. 
+         * The async/await pattern allows the app to stay responsive while the data is being fetched.
          */
         public async Task<MovieGenreViewModel> GetMoviesByGenreAsync(int genreId, string genreName, int page = 1, bool isIndexPage = true)
         {
             var apiResponse = await _movieService.GetMoviesByGenreAsync(genreId, page);
 
             // Use the isIndexPage flag to decide how many movies to show
-            int movieLimit = isIndexPage ? 6 : 20;
+            int movieLimit = isIndexPage ? 6 : 18;
 
             // Return a MovieGenreViewModel with the data
             return new MovieGenreViewModel

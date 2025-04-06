@@ -46,16 +46,14 @@
     <h1 class="text-white">@genreName (@total in total)</h1>
 
     <!-- Movie List layout using Bootstrap grid system -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-3">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 mt-3">
         @foreach (var series in Model)
         {
             <!-- Loop through each series in the model (list of Series) -->
             <div class="col">
-                <!-- Link to the details page for the series -->
+                <!-- Link to the details page for the series, display series poster image and display series name under the image -->
                 <a href="/Series/Details/@series.Id" style="text-decoration: none;">
-                    <!-- Display the series poster image -->
                     <img src="@series.PosterUrl" class="img-fluid rounded shadow bg-black" style="height: 300px; object-fit: contain;" alt="@series.Name" />
-                    <!-- Display the series name under the image -->
                     <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                 </a>
             </div>

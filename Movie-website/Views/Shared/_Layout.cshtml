@@ -10,13 +10,8 @@
     <!-- Set the page title dynamically from the view -->
     <title>@ViewData["Title"] - Movie_website</title>
 
-    <!-- Load Bootstrap CSS for layout and components -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    <!-- Load custom site-wide styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
-    <!-- Load styles generated for this Razor project -->
     <link rel="stylesheet" href="~/Movie_website.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -92,7 +87,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <!-- Optional section for additional scripts (e.g., from views) -->
+    <!-- Optional section for additional scripts -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
