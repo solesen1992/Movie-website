@@ -214,3 +214,7 @@ If I had more time, I could improve the project by:
 - Making the wishlist persist between sessions.
 
 - Make it possible to add tv-series to the wishlist.
+
+- Make a 'people' page with actors and what movies they've been in.
+
+- Add photos to cast and crew on the detail page.
