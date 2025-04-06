@@ -10,10 +10,10 @@ It was my first time fetching and working with data from an external API that I 
 - This will start the website locally in your browser.
 
 # 🖼️ Screenshot of website frontpage
-![Image](https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc)
+<img width="700" alt="Image" src="https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc" />
 
 # 🖼️ Screenshot of movie details
-<img width="1279" alt="Image" src="https://github.com/user-attachments/assets/277979c6-b70a-47e7-abac-6ac31dbc1949" />
+<img width="700" alt="Image" src="https://github.com/user-attachments/assets/277979c6-b70a-47e7-abac-6ac31dbc1949" />
 
 # 📄 Documentation
 Information about some of my coding choices.
@@ -95,52 +95,81 @@ This makes it possible to:
 
 ✅ Make the application easier to test and maintain
 
-## 🔄 Response-classes in the model layer & JSON handling
-In this project, I initially used custom Response classes like ApiListResponse<T>, CreditsListResponse, and VideoListResponse to deserialize the JSON returned by The Movie Database API. However, I decided to remove these response classes and instead handle the JSON manually in the Service Layer using JsonDocument and JsonSerializer.
+## 🔄 Response-classes & JSON handling
+In this project, I chose to use response classes like ApiListResponse<T>, CreditsListResponse, and VideoListResponse to deserialize JSON returned from The MovieDatabase API.
 
-For example my ApiListResponse<T> looked like this:
+I made this decision because it's my first time working with response classes, and I wanted to try them out in practice and see how they work.
+
+✅ Why I chose to keep response classes
+
+- Easy structure: Each response class represents the JSON shape returned by the API, making it simple to deserialize directly using GetFromJsonAsync<T>().
+
+- Less boilerplate: Instead of manually digging through JSON with JsonDocument, I can let .NET map everything automatically.
+
+- Good for learning: Since I'm new to this pattern, using response classes helps me see how data is structured in the API and how it maps to C# models.
+
+🧠 Alternative approach: Manual JSON mapping
+
+- Alternatively, I could have skipped response classes and mapped the raw JSON manually in the Service Layer using JsonDocument or JsonNode. This would have given me more control and a deeper understanding of the JSON structure.
+
+Here’s an example of how I could have mapped the JSON myself:
 ```
-/*
- * This model represents the JSON structure returned by The Movie Database API when you request a list of movies or series.
- * It is a generic class, meaning it can be used for both movies and series (or anything else) because of <T>.
- * When you fetch movies, it will be ApiListResponse<Movie>. When you fetch series, it will be ApiListResponse<Series>
- * 
- * Why use [JsonPropertyName()]?
- * The API returns property names in snake_case (e.g. "total_results"). In C#, we normally use PascalCase (TotalResults).
- * So we use JsonPropertyName to tell the deserializer: "When you see 'total_results' in JSON, map it to 'TotalResults' in C#."
- */
-public class ApiListResponse<T>
+public async Task<List<Movie>> GetMoviesByGenreAsync(int genreId, int page = 1)
 {
-    [JsonPropertyName("results")]
-    public List<T> Results { get; set; }
+    try
+    {
+        // Build the API request URL using the selected genre and page number
+        string url = $"{_baseUrl}discover/movie?api_key={_apiKey}&with_genres={genreId}&page={page}";
 
-    [JsonPropertyName("page")]
-    public int Page { get; set; }
+        // Send an HTTP GET request to the API
+        var httpResponse = await _httpClient.GetAsync(url);
 
-    [JsonPropertyName("total_pages")]
-    public int TotalPages { get; set; }
+        // If the response is not successful (e.g. 404 or 500), return an empty list
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            return new List<Movie>();
+        }
 
-    [JsonPropertyName("total_results")]
-    public int TotalResults { get; set; }
+        // Read the response content as a JSON string
+        var jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+        // Parse the JSON into a JsonDocument for manual processing
+        using var document = JsonDocument.Parse(jsonString);
+        var root = document.RootElement;
+
+        // Create a list to store the mapped Movie objects
+        var movies = new List<Movie>();
+
+        // Loop through each movie in the "results" array
+        foreach (var item in root.GetProperty("results").EnumerateArray())
+        {
+            // Map only the fields we need from each JSON object
+            var movie = new Movie
+            {
+                Id = item.GetProperty("id").GetInt32(),
+                Title = item.GetProperty("title").GetString(),
+                Overview = item.GetProperty("overview").GetString(),
+                PosterPath = item.TryGetProperty("poster_path", out var poster) ? poster.GetString() : null,
+                ReleaseDate = item.TryGetProperty("release_date", out var release) ? release.GetString() : null
+                // You can add more fields as needed
+            };
+
+            // Add the mapped movie to the list
+            movies.Add(movie);
+        }
+
+        // Return the final list of movies
+        return movies;
+    }
+    // Catch is removed from example
 }
 ```
+Manual JSON handling would have given me:
+- More control over exactly what I fetch
+- Better understanding of JSON structure and deserialization
+- But it also requires more code and error handling
 
-✅ Why I made this choice
-
-Better control:
-- By reading and mapping the JSON manually, I have full control over which fields I want to use. I don’t depend on the exact structure of the API response.
-
-Improved understanding:
-- It forced me to work more directly with JSON structure, which gave me a better technical understanding of how data is transferred and parsed.
-
-Cleaner models:
-- I no longer need extra response models just to match the API's JSON format. Instead, I only use real domain models (Movie, Series, Credits, Genre, Video) which are used throughout my application.
-
-Easier maintenance:
-- If the API structure changes slightly, I only need to adjust how I parse the JSON — not rewrite response classes.
-
-❗️ Tradeoff
-- This approach requires slightly more code in the Service Layer and some manual null-checks, but for a smaller project like this, it increases transparency and reduces unnecessary complexity.
+For this project, response classes made sense – but trying both ways helped me learn a lot about how .NET works with JSON.
 
 ## 🎯 ModelView in the model layer
 I also created simple ViewModels to prepare and structure the data before sending it to the Views.
@@ -156,7 +185,7 @@ This project includes a Wishlist feature. The wishlist is saved in the Session, 
 
 The wishlist feature was a good exercise in working with Session state in ASP.NET Core.
 
-## Error prevention on photos
+## 🧠 Error prevention on photos
 Sometimes the movie/series poster and background photo aren't available. So I've inserted a stockphoto in case it doesn't find a photo.
 
 Here's an example of some of the posters and backgrounds that didn't load:
