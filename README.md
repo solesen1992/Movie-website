@@ -155,6 +155,14 @@ This project includes a Wishlist feature. The wishlist is saved in the Session, 
 
 The wishlist feature was a good exercise in working with Session state in ASP.NET Core.
 
+## Error prevention on photos
+Sometimes the movie/series poster and background photo aren't available. So I've inserted a stockphoto in case it doesn't find a photo.
+
+Here's an example of some of the posters and backgrounds that didn't load:
+<img width="500" alt="Image" src="https://github.com/user-attachments/assets/a924b26d-2529-49ac-9ab8-866088ac72fb" />
+
+<img width="500" alt="Image" src="https://github.com/user-attachments/assets/1e440884-993d-493d-b57f-31bf193befd0" />
+
 ## Things that could be changed
 If I had more time, I could improve the project by:
 
@@ -163,5 +171,3 @@ If I had more time, I could improve the project by:
 - Making the wishlist persist between sessions.
 
 - Make it possible to add tv-series to the wishlist.
-
-- Using retry policies or timeout configurations in .AddHttpClient().
