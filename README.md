@@ -11,6 +11,9 @@ This will start the website locally in your browser.
 # 🖼️ Screenshot of website frontpage
 ![Image](https://github.com/user-attachments/assets/8fe54c85-2cc3-4333-af52-04c8ad684ffc)
 
+# 🖼️ Screenshot of movie details
+![Image](https://github.com/user-attachments/assets/88d342d7-37f0-410f-a1d1-9d6b1763e8f7)
+
 # 📄 Documentation
 Information about some of my coding choices.
 
