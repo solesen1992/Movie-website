@@ -42,7 +42,7 @@ namespace Movie_website.BusinessLogic
          * packages it into a HomePageViewModel.
          * 
          * Why async?
-         * - The method is asynchronous because it involves calling external data sources (e.g., APIs), which may take time.
+         * - The method is asynchronous because it involves calling external data sources (API), which may take time.
          * 
          * Returns:
          * - A populated HomePageViewModel containing movies and series data for display on the homepage.
