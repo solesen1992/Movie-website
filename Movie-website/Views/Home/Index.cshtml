@@ -19,7 +19,6 @@
 <!-- Genres -->
 <!-- Container for the content with top margin -->
 <div class="container mt-5">
-    <!-- Display header for Movies section -->
     <h2 class="text-white mb-3">Movies</h2>
 
     <!-- Loop through each genre in the MovieGenres list -->
@@ -28,9 +27,8 @@
         <!-- Container for each genre with bottom margin -->
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <!-- Display the genre name and total count -->
+                <!-- Display the genre name and total count + a see all button-->
                 <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
-                <!-- Link to see all movies in the genre -->
                 <a class="btn btn-outline-light btn-sm btn-see-all" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
@@ -43,9 +41,8 @@
                     <div class="col">
                         <!-- Link to movie details page -->
                         <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
-                            <!-- Movie poster image -->
+                            <!-- Movie poster image and title under poster-->
                             <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
-                            <!-- Movie title under the poster -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                         </a>
                     </div>
@@ -54,7 +51,7 @@
         </div>
     }
 
-    <!-- Display header for Series section -->
+    <!-- Header for Series section -->
     <h2 class="text-white mb-3">Series</h2>
 
     <!-- Loop through each genre in the SeriesGenres list -->
@@ -63,9 +60,8 @@
         <!-- Container for each genre with bottom margin -->
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <!-- Display the genre name and total count -->
+                <!-- Display the genre name and total count + see all button-->
                 <h3 class="text-white">@genre.Name (@genre.TotalCount in total)</h3>
-                <!-- Link to see all series in the genre -->
                 <a class="btn btn-outline-light btn-sm btn-see-all" href="/Series/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
@@ -78,9 +74,8 @@
                     <div class="col">
                         <!-- Link to series details page -->
                         <a href="/Series/Details/@series.Id" style="text-decoration: none;">
-                            <!-- Series poster image -->
+                            <!-- Series poster image + series name under poster -->
                             <img src="@series.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
-                            <!-- Series name under the poster -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@series.Name</p>
                         </a>
                     </div>

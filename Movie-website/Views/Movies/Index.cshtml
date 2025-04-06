@@ -10,7 +10,6 @@
 <div class="container mt-5">
     <!-- Main heading for the page that displays 'Movies - Sorted by genres' with some margin at the bottom -->
     <h1 class="text-white mb-3">Movies - Sorted by genres</h1>
-    <!-- Line break for spacing -->
     </br>
 
     <!-- Loop through each genre in the Model (List<MovieGenreViewModel>) -->
@@ -20,9 +19,8 @@
         <div class="mb-5">
             <!-- Flexbox layout to align genre name and the 'See all' button on opposite sides -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <!-- Display the genre name and total count of movies in that genre -->
+                <!-- Display the genre name and total count of movies in that genre + link to the genre page through the "see all" button -->
                 <h2 class="text-white">@genre.Name (@genre.TotalCount in total)</h2>
-                <!-- Link to the genre page with a button that says 'See all' -->
                 <a class="btn btn-outline-light btn-sm btn-see-all" href="/Movies/Genre?id=@genre.Id&name=@genre.Name">See all</a>
             </div>
 
@@ -38,7 +36,6 @@
                         <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
                             <!-- Movie poster image, with responsive size and rounded corners, set to a fixed height and scaled within the container -->
                             <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
-                            <!-- Movie title under the poster with some margin on top, white text color, and centered alignment -->
                             <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                         </a>
                     </div>

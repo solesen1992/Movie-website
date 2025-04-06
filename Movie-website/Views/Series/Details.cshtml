@@ -22,20 +22,17 @@
         <div class="row">
             <!-- The following section handles the movie poster image and makes it responsive based on screen size -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-4 text-center">
-                <!-- Display the series poster image with responsive sizing, rounded corners, and a shadow effect -->
                 <img src="@Model.PosterUrl" class="img-fluid rounded shadow mx-auto d-block" alt="@Model.Name" />
             </div>
 
             <!-- The following section contains the series details like title, description, genres, trailer, cast, and crew -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-8 container-mobile-tablet">
 
-                <!-- Display the series title and release year -->
+                <!-- Display the series title and release year & series description (overview) -->
                 <h1>@Model.Name (@Model.ReleaseYear)</h1>
-
-                <!-- Display the series description (overview) -->
                 <p>@Model.Overview</p>
 
-                <!-- Display the genres of the series, joined by a comma -->
+                <!-- Display the genres of the series -->
                 @if (Model.Genres != null && Model.Genres.Count > 0)
                 {
                     <p>

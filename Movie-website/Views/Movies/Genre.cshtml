@@ -58,9 +58,8 @@
             <div class="col">
                 <!-- Link to the details page for the movie -->
                 <a href="/Movies/Details/@movie.Id" style="text-decoration: none;">
-                    <!-- Display the movie poster image -->
+                    <!-- Display the movie poster image & movie title under the image-->
                     <img src="@movie.PosterUrl" class="img-fluid rounded bg-black" style="height: 300px; object-fit: contain;" />
-                    <!-- Display the movie title under the image -->
                     <p class="mt-2 text-white text-center" style="font-size: 0.9rem;">@movie.Title</p>
                 </a>
             </div>
@@ -68,13 +67,13 @@
     </div>
 
     <!-- Pagination controls if there are more than one page -->
-    @if (totalPages > 1)  // ´Check if totalPages is greater than 1 to show pagination -->
+    @if (totalPages > 1)  // Check if totalPages is greater than 1 to show pagination -->
     {
         <!-- Navigation bar for pagination -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
                 <!-- "Previous" button, which is shown if we are not on the first page -->
-                @if (currentPage > 1)  // Show the "Previous" button if we are not on the first page -->
+                @if (currentPage > 1)
                 {
                     <li class="page-item">
                         <a class="page-link" href="/Movies/Genre?id=@genreId&name=@genreName&page=@(currentPage - 1)">Previous</a>
@@ -107,7 +106,7 @@
                 }
 
                 <!-- "Next" button, which is shown if we are not on the last page -->
-                @if (currentPage < totalPages)  // Show the "Next" button if we are not on the last page -->
+                @if (currentPage < totalPages) 
                 {
                     <li class="page-item">
                         <a class="page-link" href="/Movies/Genre?id=@genreId&name=@genreName&page=@(currentPage + 1)">Next</a>

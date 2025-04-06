@@ -19,20 +19,15 @@
         <div class="row">
             <!-- This section creates a responsive image container for the movie's poster. -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-4 text-center">
-                <!-- Display the movie's poster with responsive sizing and rounded corners. -->
                 <img src="@Model.PosterUrl" class="img-fluid rounded shadow mx-auto d-block" />
             </div>
 
             <!-- This section displays the movie details, including the title, description, genres, and buttons. -->
             <div class="row-cols-12 col-sm-12 col-md-12 col-lg-8 container-mobile-tablet">
-
-                <!-- Display the movie title and release year. -->
                 <h1>@Model.Title (@Model.ReleaseYear)</h1>
+                <p>@Model.Overview</p> <!-- description-->
 
-                <!-- Display the movie's overview or description. -->
-                <p>@Model.Overview</p>
-
-                <!-- Display the genres for the movie, joined by a comma. -->
+                <!-- Display the genres for the movie -->
                 @if (Model.Genres != null && Model.Genres.Count > 0)
                 {
                     <p>
@@ -82,7 +77,7 @@
                 <!-- If a trailer is available, embed a YouTube video player to display it. -->
                 @if (Model.Videos != null && Model.Videos.Results != null)
                 {
-                    // Declare a variable to store the trailer
+                    // Tto store the trailer
                     Video trailer = null;
 
                     // Loop through all videos to find the first YouTube trailer
