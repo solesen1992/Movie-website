@@ -58,7 +58,7 @@ namespace Movie_website.BusinessLogic
             var apiResponse = await _movieService.GetMoviesByGenreAsync(genreId, page);
 
             // Use the isIndexPage flag to decide how many movies to show
-            int movieLimit = isIndexPage ? 6 : 18;
+            int movieLimit = isIndexPage ? 6 : 20;
 
             // Return a MovieGenreViewModel with the data
             return new MovieGenreViewModel
